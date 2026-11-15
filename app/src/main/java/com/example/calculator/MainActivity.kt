@@ -1,7 +1,7 @@
 package com.example.calculator
 
 import android.content.Context
-import android.graphics.Color as AColor
+import android.graphics.Color as AndroidColor
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
@@ -13,296 +13,364 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Backspace
-import androidx.compose.material.icons.outlined.*
+import androidx.compose.material.icons.outlined.History
+import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.json.JSONArray
 import org.json.JSONObject
+import java.math.BigDecimal
+import java.math.MathContext
 
-val Blue = Color(0xFF4A6CFF)
-val KeyBg = Color(0xFF171717)
-val OpBg = Color(0xFF101521)
-val PanelBg = Color(0xFF1C1D1F)
-val Grey = Color(0xFFA0A0A0)
-val Txt = Color(0xFFE3E3E3)
+private val VivoBlue = Color(0xFF579CF8)
+private val White = Color(0xFFFFFFFF)
+private val NumberKey = Color(0xFFF7F7F7)
+private val SpecialKey = Color(0xFFF1F4FF)
+private val MainText = Color(0xFF111111)
+private val Grey = Color(0xFF666666)
+private val EqualYellow = Color(0xFFFFC335)
+private val Line = Color(0xFFECECEC)
 
-data class Entry(val expr: String, val result: String, val count: Int)
+private data class HistoryEntry(val expression: String, val result: String, val time: Long)
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge(
-            statusBarStyle = SystemBarStyle.dark(AColor.TRANSPARENT),
-            navigationBarStyle = SystemBarStyle.dark(AColor.TRANSPARENT)
+            statusBarStyle = SystemBarStyle.light(White.toArgb(), AndroidColor.BLACK),
+            navigationBarStyle = SystemBarStyle.light(White.toArgb(), AndroidColor.BLACK)
         )
-        setContent { CalcApp() }
+        setContent { CalculatorApp() }
     }
 }
 
-val numRe = Regex("\\d+\\.?\\d*|\\.\\d+")
-
-fun comma(s: String): String {
-    val p = s.split(".")
-    val i = p[0].reversed().chunked(3).joinToString(",").reversed()
-    return if (p.size > 1) "$i.${p[1]}" else i
-}
-fun show(s: String) = numRe.replace(s) { comma(it.value) }
-    .replace('*', '×').replace('/', '÷').replace('-', '−')
-
-fun fmt(d: Double): String {
-    val r = java.math.BigDecimal(d).round(java.math.MathContext(12)).stripTrailingZeros()
-    return r.toPlainString()
-}
-
-fun evalExpr(s: String): Double? {
-    val nums = mutableListOf<Double>(); val ops = mutableListOf<Char>()
-    var i = 0; var neg = false
-    if (s.startsWith("-")) { neg = true; i = 1 }
-    while (i < s.length) {
-        val st = i
-        while (i < s.length && (s[i].isDigit() || s[i] == '.')) i++
-        if (st == i) return null
-        var v = s.substring(st, i).toDoubleOrNull() ?: return null
-        if (i < s.length && s[i] == '%') { v /= 100; i++ }
-        if (neg) { v = -v; neg = false }
-        nums.add(v)
-        if (i < s.length) { ops.add(s[i]); i++ }
-    }
-    if (nums.isEmpty() || ops.size != nums.size - 1) return null
-    val n2 = mutableListOf(nums[0]); val o2 = mutableListOf<Char>()
-    for (k in ops.indices) {
-        val b = nums[k + 1]
-        when (ops[k]) {
-            '*' -> n2[n2.lastIndex] = n2.last() * b
-            '/' -> { if (b == 0.0) return null; n2[n2.lastIndex] = n2.last() / b }
-            else -> { o2.add(ops[k]); n2.add(b) }
-        }
-    }
-    var r = n2[0]
-    for (k in o2.indices) r = if (o2[k] == '+') r + n2[k + 1] else r - n2[k + 1]
-    return r
-}
-
-class Calc(private val ctx: Context) {
-    var expr by mutableStateOf("")
+private class CalculatorState(context: Context) {
+    private val prefs = context.getSharedPreferences("vivo_calculator", Context.MODE_PRIVATE)
+    var expression by mutableStateOf("")
+        private set
     var error by mutableStateOf(false)
-    var done = false
-    val hist = mutableStateListOf<Entry>()
-    private val prefs = ctx.getSharedPreferences("calc", Context.MODE_PRIVATE)
+        private set
+    var completed by mutableStateOf(false)
+        private set
+    val history = mutableStateListOf<HistoryEntry>()
 
     init {
-        try {
-            val a = JSONArray(prefs.getString("history", "[]"))
-            for (i in 0 until a.length()) {
-                val o = a.getJSONObject(i)
-                hist.add(Entry(o.getString("e"), o.getString("r"), o.getInt("c")))
+        runCatching {
+            val data = JSONArray(prefs.getString("history", "[]"))
+            for (i in 0 until data.length()) {
+                val item = data.getJSONObject(i)
+                history.add(HistoryEntry(item.getString("expression"), item.getString("result"), item.optLong("time")))
             }
-        } catch (_: Exception) {}
-    }
-
-    fun save() {
-        val a = JSONArray()
-        hist.take(100).forEach { a.put(JSONObject().put("e", it.expr).put("r", it.result).put("c", it.count)) }
-        prefs.edit().putString("history", a.toString()).apply()
-    }
-    fun clearHistory() { hist.clear(); save() }
-
-    private fun lastNum() = Regex("(\\d+\\.?\\d*|\\.\\d+)%?$").find(expr)
-
-    fun press(k: String) {
-        error = false
-        val last = expr.lastOrNull()
-        when {
-            k.length == 1 && k[0].isDigit() -> {
-                if (done) { expr = ""; done = false }
-                if (last == '%') return
-                if (expr.endsWith("0") && lastNum()?.value == "0") expr = expr.dropLast(1)
-                expr += k
-            }
-            k == "." -> {
-                if (done) { expr = ""; done = false }
-                val m = Regex("[\\d.]+$").find(expr)
-                if (m != null && m.value.contains('.')) return
-                expr += if (last?.isDigit() == true) "." else "0."
-            }
-            k in listOf("+", "-", "*", "/") -> {
-                done = false
-                if (expr.isEmpty()) { if (k == "-") expr = "-"; return }
-                if (last in listOf('+', '-', '*', '/')) { if (expr.length == 1) return; expr = expr.dropLast(1) }
-                expr += k
-            }
-            k == "%" -> if (last?.isDigit() == true) { done = false; expr += "%" }
-            k == "AC" -> { expr = ""; done = false }
-            k == "del" -> { if (done) { expr = ""; done = false } else expr = expr.dropLast(1) }
-            k == "neg" -> {
-                val m = lastNum() ?: return
-                val i = m.range.first
-                val b = expr.getOrNull(i - 1)
-                expr = when {
-                    b == '-' && (i - 1 == 0 || expr[i - 2] in "+-*/") -> expr.removeRange(i - 1, i)
-                    i == 0 -> "-$expr"
-                    b == '+' -> expr.replaceRange(i - 1, i, "-")
-                    b == '-' -> expr.replaceRange(i - 1, i, "+")
-                    else -> expr.substring(0, i) + "-" + expr.substring(i)
-                }
-            }
-            k == "=" -> equals()
         }
     }
 
-    private fun equals() {
-        val s = expr.trimEnd('+', '-', '*', '/', '.')
-        if (s.isEmpty() || !Regex("[+\\-*/%]").containsMatchIn(s.removePrefix("-"))) return
-        val count = numRe.findAll(s).count()
-        val v = evalExpr(s)
-        if (v == null || v.isNaN() || v.isInfinite()) { expr = ""; error = true; return }
-        val r = fmt(v)
-        hist.add(0, Entry(s, r, count)); save()
-        expr = r; done = true
+    fun clear() { expression = ""; error = false; completed = false }
+    fun delete() {
+        error = false
+        if (completed) clear() else expression = expression.dropLast(1)
+    }
+
+    fun press(key: String) {
+        error = false
+        val last = expression.lastOrNull()
+        when {
+            key.length == 1 && key[0].isDigit() -> {
+                if (completed) clear()
+                if (expression.lastOrNull() == '%') return
+                val number = Regex("(?:\\d+\\.?\\d*|\\.\\d+)$").find(expression)?.value
+                if (number == "0") expression = expression.dropLast(1)
+                expression += key
+            }
+            key == "." -> {
+                if (completed) clear()
+                val number = Regex("(?:\\d+\\.?\\d*|\\.\\d+)$").find(expression)?.value.orEmpty()
+                if (!number.contains('.')) expression += if (number.isEmpty()) "0." else "."
+            }
+            key in listOf("+", "−", "×", "÷") -> {
+                completed = false
+                val op = when (key) { "−" -> "-"; "×" -> "*"; "÷" -> "/"; else -> key }
+                if (expression.isEmpty()) { if (op == "-") expression = "-"; return }
+                if (last in listOf('+', '-', '*', '/')) {
+                    if (expression.length == 1 && last == '-') return
+                    expression = expression.dropLast(1)
+                }
+                expression += op
+            }
+            key == "%" -> if (!completed && (last?.isDigit() == true || last == '.')) expression += "%"
+            key == "±" -> toggleSign()
+            key == "AC" -> clear()
+            key == "DEL" -> delete()
+            key == "=" -> calculate()
+        }
+    }
+
+    private fun toggleSign() {
+        if (expression.isEmpty() || completed) return
+        val match = Regex("(?:\\d+\\.?\\d*|\\.\\d+)%?$").find(expression) ?: return
+        val start = match.range.first
+        val before = expression.getOrNull(start - 1)
+        expression = when {
+            before == '-' && (start == 1 || expression.getOrNull(start - 2) in listOf('+', '-', '*', '/')) -> expression.removeRange(start - 1, start)
+            start == 0 -> "-$expression"
+            before == '+' -> expression.replaceRange(start - 1, start, "-")
+            before == '-' -> expression.replaceRange(start - 1, start, "+")
+            else -> expression.substring(0, start) + "-" + expression.substring(start)
+        }
+    }
+
+    fun calculate() {
+        val input = expression.trimEnd('+', '-', '*', '/', '.')
+        if (input.isBlank()) return
+        val result = runCatching { Parser(input).parse() }.getOrNull()
+        if (result == null || !result.isFinite()) { error = true; return }
+        val formatted = format(result)
+        history.add(0, HistoryEntry(input, formatted, System.currentTimeMillis()))
+        if (history.size > 100) history.removeAt(history.lastIndex)
+        saveHistory()
+        expression = formatted
+        completed = true
+    }
+
+    fun restore(entry: HistoryEntry) { expression = entry.result; error = false; completed = true }
+    fun clearHistory() { history.clear(); saveHistory() }
+
+    private fun saveHistory() {
+        val array = JSONArray()
+        history.forEach { array.put(JSONObject().put("expression", it.expression).put("result", it.result).put("time", it.time)) }
+        prefs.edit().putString("history", array.toString()).apply()
     }
 }
 
-@Composable
-fun CalcApp() {
-    val ctx = androidx.compose.ui.platform.LocalContext.current
-    val calc = remember { Calc(ctx) }
-    var showHist by remember { mutableStateOf(false) }
-
-    Column(
-        Modifier.fillMaxSize().background(Color.Black).statusBarsPadding().navigationBarsPadding()
-    ) {
-        Row(
-            Modifier.fillMaxWidth().padding(start = 22.dp, end = 22.dp, top = 22.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Icon(Icons.Outlined.FullscreenExit, null, tint = Color.White, modifier = Modifier.size(28.dp))
-            Icon(Icons.Outlined.Settings, null, tint = Color.White, modifier = Modifier.size(28.dp))
+private class Parser(private val input: String) {
+    private var pos = 0
+    fun parse(): Double {
+        val value = expression()
+        spaces()
+        require(pos == input.length)
+        return value
+    }
+    private fun expression(): Double {
+        var value = term()
+        while (true) {
+            spaces()
+            value = when { take('+') -> value + term(); take('-') -> value - term(); else -> return value }
         }
+    }
+    private fun term(): Double {
+        var value = unary()
+        while (true) {
+            spaces()
+            value = when {
+                take('*') -> value * unary()
+                take('/') -> { val divisor = unary(); require(divisor != 0.0); value / divisor }
+                else -> return value
+            }
+        }
+    }
+    private fun unary(): Double {
+        spaces()
+        return when { take('+') -> unary(); take('-') -> -unary(); else -> postfix() }
+    }
+    private fun postfix(): Double {
+        var value = primary()
+        while (true) { spaces(); if (take('%')) value /= 100.0 else return value }
+    }
+    private fun primary(): Double {
+        spaces()
+        if (take('(')) { val v = expression(); spaces(); require(take(')')); return v }
+        val start = pos
+        var dots = 0
+        while (pos < input.length && (input[pos].isDigit() || input[pos] == '.')) {
+            if (input[pos] == '.') dots++
+            pos++
+        }
+        require(pos > start && dots <= 1)
+        return input.substring(start, pos).toDouble()
+    }
+    private fun take(c: Char): Boolean {
+        if (pos < input.length && input[pos] == c) { pos++; return true }
+        return false
+    }
+    private fun spaces() { while (pos < input.length && input[pos].isWhitespace()) pos++ }
+}
 
-        Box(Modifier.weight(1f).fillMaxWidth().padding(end = 14.dp), contentAlignment = Alignment.CenterEnd) {
-            val text = if (calc.error) "Error" else show(calc.expr)
-            val size = if (text.length <= 9) 60f else maxOf(24f, 60f * 9f / text.length)
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(text, color = Txt, fontSize = size.sp, fontWeight = FontWeight.Light, maxLines = 1, softWrap = false)
-                if (!showHist) Box(Modifier.padding(start = 2.dp).width(2.dp).height(76.dp).background(Blue))
+private fun format(value: Double): String =
+    if (value == 0.0) "0" else BigDecimal(value.toString()).round(MathContext(12)).stripTrailingZeros().toPlainString()
+
+private fun pretty(value: String) = value.replace('*', '×').replace('/', '÷').replace('-', '−')
+
+@Composable
+private fun CalculatorApp() {
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val calc = remember { CalculatorState(context) }
+    var historyVisible by remember { mutableStateOf(false) }
+    var settingsVisible by remember { mutableStateOf(false) }
+
+    Column(Modifier.fillMaxSize().background(White).statusBarsPadding().navigationBarsPadding().padding(bottom = 8.dp)) {
+        Row(
+            Modifier.fillMaxWidth().height(76.dp).padding(horizontal = 24.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(Modifier.size(44.dp).clip(CircleShape).clickable { settingsVisible = true }, contentAlignment = Alignment.Center) {
+                Icon(Icons.Outlined.Settings, "Settings", tint = MainText, modifier = Modifier.size(24.dp))
+            }
+            Text("Calculator", color = Grey, fontSize = 16.sp, fontWeight = FontWeight.Medium)
+            Box(Modifier.size(44.dp).clip(CircleShape).clickable { calc.clear() }, contentAlignment = Alignment.Center) {
+                Icon(Icons.AutoMirrored.Outlined.Backspace, "Clear input", tint = MainText, modifier = Modifier.size(23.dp))
             }
         }
 
-        Row(Modifier.fillMaxWidth().height(50.dp).padding(start = 18.dp, end = 22.dp), verticalAlignment = Alignment.CenterVertically) {
-            ToolIcon(if (showHist) Icons.Outlined.Calculate else Icons.Outlined.History, showHist) { showHist = !showHist }
-            ToolIcon(Icons.Outlined.Functions, false) {}
-            ToolIcon(Icons.Outlined.CurrencyExchange, false) {}
-            Spacer(Modifier.weight(1f))
-            if (showHist) Icon(Icons.AutoMirrored.Outlined.Backspace, null, tint = Blue,
-                modifier = Modifier.size(34.dp).clip(CircleShape).clickable { calc.press("del") }.padding(4.dp))
-        }
-        HorizontalDivider(color = Color(0xFF222222))
-        Spacer(Modifier.height(15.dp))
-
-        val ops = listOf("÷" to "/", "×" to "*", "−" to "-", "+" to "+", "=" to "=")
-        if (showHist) {
-            Row(Modifier.fillMaxWidth().padding(start = 19.dp, end = 22.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-                HistoryPanel(calc)
-                Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
-                    ops.forEach { (l, k) -> Key(l, null, k == "=") { calc.press(k) } }
+        Column(
+            Modifier.weight(1f).fillMaxWidth().padding(horizontal = 24.dp, vertical = 10.dp),
+            horizontalAlignment = Alignment.End,
+            verticalArrangement = Arrangement.Bottom
+        ) {
+            if (calc.expression.isBlank()) {
+                Text("0", color = MainText, fontSize = 58.sp, fontWeight = FontWeight.Light)
+            } else {
+                Text(
+                    if (calc.error) "Error" else pretty(calc.expression),
+                    color = if (calc.error) Color(0xFFE34B4B) else MainText,
+                    fontSize = expressionSize(calc.expression).sp,
+                    fontWeight = FontWeight.Light,
+                    maxLines = 1,
+                    softWrap = false,
+                    overflow = TextOverflow.Clip,
+                    textAlign = TextAlign.End,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                val preview = runCatching {
+                    val s = calc.expression.trimEnd('+', '-', '*', '/', '.')
+                    if (!calc.error && !calc.completed && s.isNotBlank()) format(Parser(s).parse()) else ""
+                }.getOrDefault("")
+                if (preview.isNotBlank() && preview != calc.expression) {
+                    Text(preview, color = Grey, fontSize = 28.sp, modifier = Modifier.padding(top = 12.dp))
                 }
             }
+        }
+
+        Row(
+            Modifier.fillMaxWidth().height(54.dp).padding(horizontal = 24.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                    Modifier.size(42.dp).clip(CircleShape)
+                        .background(if (historyVisible) SpecialKey else Color.Transparent)
+                        .clickable { historyVisible = !historyVisible },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(Icons.Outlined.History, "History", tint = VivoBlue, modifier = Modifier.size(25.dp))
+                }
+                Text(if (historyVisible) "History" else "Recent calculations", color = Grey, fontSize = 13.sp, modifier = Modifier.padding(start = 8.dp))
+            }
+            if (historyVisible) {
+                Text("Clear", color = VivoBlue, modifier = Modifier.clickable { calc.clearHistory() }.padding(10.dp))
+            }
+        }
+        HorizontalDivider(color = Line)
+
+        if (historyVisible) {
+            HistoryPanel(calc.history, { calc.restore(it); historyVisible = false })
         } else {
+            Spacer(Modifier.height(14.dp))
             val rows = listOf(
-                listOf("AC", "del", "neg", "/"), listOf("7", "8", "9", "*"), listOf("4", "5", "6", "-"),
-                listOf("1", "2", "3", "+"), listOf("%", "0", ".", "=")
+                listOf("AC", "DEL", "±", "÷"),
+                listOf("7", "8", "9", "×"),
+                listOf("4", "5", "6", "−"),
+                listOf("1", "2", "3", "+"),
+                listOf("%", "0", ".", "=")
             )
-            Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
+            Column(Modifier.fillMaxWidth().padding(horizontal = 18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 rows.forEach { row ->
-                    Row(Modifier.fillMaxWidth().padding(horizontal = 22.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-                        row.forEach { k ->
-                            when {
-                                k == "AC" -> Key("AC", null, false, op = true) { calc.press(k) }
-                                k == "del" -> Key(null, Icons.AutoMirrored.Outlined.Backspace, false, op = true) { calc.press(k) }
-                                k == "neg" -> Key("+/_", null, false, op = true) { calc.press(k) }
-                                k in listOf("/", "*", "-", "+") -> Key(ops.first { it.second == k }.first, null, false) { calc.press(k) }
-                                k == "=" -> Key("=", null, true) { calc.press(k) }
-                                else -> Key(k, null, false, digit = true) { calc.press(k) }
-                            }
-                        }
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        row.forEach { key -> CalculatorKey(key, Modifier.weight(1f)) { calc.press(key) } }
                     }
                 }
             }
+            Spacer(Modifier.height(18.dp))
         }
-        Spacer(Modifier.height(30.dp))
+    }
+
+    if (settingsVisible) {
+        AlertDialog(
+            onDismissRequest = { settingsVisible = false },
+            title = { Text("Calculator settings", color = MainText) },
+            text = {
+                Text(
+                    "Vivo-inspired standard calculator with basic arithmetic, percentage, sign toggle and saved calculation history. Scientific and degree/radian controls are excluded.",
+                    color = Grey
+                )
+            },
+            confirmButton = { TextButton(onClick = { settingsVisible = false }) { Text("Done", color = VivoBlue) } },
+            containerColor = White
+        )
     }
 }
 
-@Composable
-fun ToolIcon(icon: ImageVector, active: Boolean, onClick: () -> Unit) {
-    Box(Modifier.size(52.dp), contentAlignment = Alignment.Center) {
-        Box(
-            Modifier.size(34.dp).clip(CircleShape).background(if (active) Color(0xFF1B1C1E) else Color.Transparent)
-                .clickable(onClick = onClick),
-            contentAlignment = Alignment.Center
-        ) { Icon(icon, null, tint = Color(0xFFBBBBBB), modifier = Modifier.size(24.dp)) }
-    }
+private fun expressionSize(value: String): Float = when {
+    value.length <= 9 -> 48f
+    value.length <= 14 -> 38f
+    value.length <= 20 -> 30f
+    else -> (600f / value.length).coerceAtLeast(22f)
 }
 
 @Composable
-fun Key(label: String?, icon: ImageVector?, equals: Boolean, op: Boolean = false, digit: Boolean = false, onClick: () -> Unit) {
-    val bg = when { equals -> Blue; digit -> KeyBg; else -> OpBg }
-    val fg = when { equals -> Color.White; digit -> Txt; else -> Blue }
+private fun CalculatorKey(label: String, modifier: Modifier = Modifier, onClick: () -> Unit) {
+    val digit = label.length == 1 && label[0].isDigit()
+    val bg = when { label == "=" -> EqualYellow; digit -> NumberKey; else -> SpecialKey }
+    val fg = if (label == "=") Color.White else if (digit) MainText else VivoBlue
     Box(
-        Modifier.size(66.dp, 51.dp).clip(CircleShape).background(bg).clickable(onClick = onClick),
+        modifier.height(62.dp).clip(CircleShape).background(bg).clickable(onClick = onClick),
         contentAlignment = Alignment.Center
     ) {
-        if (label != null) Text(label, color = fg, fontSize = if (op && label == "AC") 26.sp else 28.sp, fontWeight = FontWeight.Light)
-        if (icon != null) Icon(icon, null, tint = fg, modifier = Modifier.size(30.dp))
+        if (label == "DEL") {
+            Icon(Icons.AutoMirrored.Outlined.Backspace, "Delete", tint = fg, modifier = Modifier.size(25.dp))
+        } else {
+            Text(label, color = fg, fontSize = if (label == "AC") 21.sp else if (label == "±") 25.sp else 27.sp)
+        }
     }
 }
 
 @Composable
-fun HistoryPanel(calc: Calc) {
-    val total = calc.hist.sumOf { it.count }
-    Column(Modifier.width(278.dp).height(337.dp).clip(RoundedCornerShape(28.dp)).background(PanelBg)) {
-        LazyColumn(Modifier.weight(1f).padding(horizontal = 20.dp)) {
-            item {
-                Row(Modifier.fillMaxWidth().padding(top = 16.dp, bottom = 8.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-                    Text("$total item${if (total == 1) "" else "s"} added in total", color = Grey, fontSize = 13.sp)
-                    Text("Today", color = Blue, fontSize = 15.sp, fontWeight = FontWeight.Bold)
-                }
-            }
-            if (calc.hist.isEmpty()) item {
-                Text("No history yet", color = Grey, fontSize = 16.sp, textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 40.dp))
-            }
-            items(calc.hist) { e ->
-                Column(Modifier.fillMaxWidth().padding(top = 12.dp)) {
-                    Text(e.expr.replace('*', '×').replace('/', '÷').replace('-', '−'), color = Grey, fontSize = 19.sp,
-                        textAlign = TextAlign.End, modifier = Modifier.fillMaxWidth().clickable { calc.expr = e.result; calc.done = true })
-                    Row(Modifier.fillMaxWidth().padding(vertical = 8.dp), horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically) {
-                        Text("${e.count} item${if (e.count == 1) "" else "s"} added", color = Blue, fontSize = 13.sp,
-                            modifier = Modifier.clip(CircleShape).background(Color(0xFF232A45)).padding(horizontal = 10.dp, vertical = 3.dp))
-                        Text("=" + comma(e.result), color = Txt, fontSize = 26.sp)
-                    }
-                    HorizontalDivider(color = Color(0xFF3A3B3D))
-                }
-            }
+private fun HistoryPanel(entries: List<HistoryEntry>, onSelect: (HistoryEntry) -> Unit) {
+    if (entries.isEmpty()) {
+        Box(Modifier.fillMaxWidth().weight(1f), contentAlignment = Alignment.Center) {
+            Text("No calculations yet", color = Grey, fontSize = 16.sp)
         }
-        Box(Modifier.fillMaxWidth().background(Color(0xFF232220)).clickable { calc.clearHistory() }.padding(vertical = 16.dp),
-            contentAlignment = Alignment.Center) {
-            Text("Clear history", color = Blue, fontSize = 20.sp)
+    } else {
+        LazyColumn(
+            Modifier.fillMaxWidth().weight(1f).padding(horizontal = 24.dp),
+            verticalArrangement = Arrangement.spacedBy(2.dp)
+        ) {
+            items(entries) { entry ->
+                Column(
+                    Modifier.fillMaxWidth().clickable { onSelect(entry) }.padding(vertical = 13.dp),
+                    horizontalAlignment = Alignment.End
+                ) {
+                    Text(pretty(entry.expression), color = Grey, fontSize = 17.sp, maxLines = 1)
+                    Text(entry.result, color = MainText, fontSize = 25.sp, fontWeight = FontWeight.Medium, modifier = Modifier.padding(top = 4.dp))
+                }
+                HorizontalDivider(color = Line)
+            }
         }
     }
 }
