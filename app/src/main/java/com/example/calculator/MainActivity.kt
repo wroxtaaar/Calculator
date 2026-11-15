@@ -38,14 +38,14 @@ import org.json.JSONObject
 import java.math.BigDecimal
 import java.math.MathContext
 
-private val VivoBlue = Color(0xFF579CF8)
-private val White = Color(0xFFFFFFFF)
-private val NumberKey = Color(0xFFF7F7F7)
-private val SpecialKey = Color(0xFFF1F4FF)
-private val MainText = Color(0xFF111111)
-private val Grey = Color(0xFF666666)
-private val EqualYellow = Color(0xFFFFC335)
-private val Line = Color(0xFFECECEC)
+private val VivoBlue = Color(0xFF79B3FF)
+private val White = Color(0xFF111216)
+private val NumberKey = Color(0xFF25272D)
+private val SpecialKey = Color(0xFF202B3D)
+private val MainText = Color(0xFFF3F4F6)
+private val Grey = Color(0xFFA3A6AF)
+private val EqualYellow = Color(0xFFFFB938)
+private val Line = Color(0xFF303239)
 
 private data class HistoryEntry(val expression: String, val result: String, val time: Long)
 
@@ -53,8 +53,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge(
-            statusBarStyle = SystemBarStyle.light(White.toArgb(), AndroidColor.BLACK),
-            navigationBarStyle = SystemBarStyle.light(White.toArgb(), AndroidColor.BLACK)
+            statusBarStyle = SystemBarStyle.dark(AndroidColor.TRANSPARENT),
+            navigationBarStyle = SystemBarStyle.dark(AndroidColor.TRANSPARENT)
         )
         setContent { CalculatorApp() }
     }
@@ -280,7 +280,7 @@ private fun CalculatorApp() {
                 ) {
                     Icon(Icons.Outlined.History, "History", tint = VivoBlue, modifier = Modifier.size(25.dp))
                 }
-                Text(if (historyVisible) "History" else "Recent calculations", color = Grey, fontSize = 13.sp, modifier = Modifier.padding(start = 8.dp))
+                Text("History · ${calc.history.size} ${if (calc.history.size == 1) "item" else "items"}", color = Grey, fontSize = 13.sp, modifier = Modifier.padding(start = 8.dp))
             }
             if (historyVisible) {
                 Text("Clear", color = VivoBlue, modifier = Modifier.clickable { calc.clearHistory() }.padding(10.dp))
@@ -354,7 +354,7 @@ private fun CalculatorKey(label: String, modifier: Modifier = Modifier, onClick:
 private fun HistoryPanel(entries: List<HistoryEntry>, onSelect: (HistoryEntry) -> Unit) {
     if (entries.isEmpty()) {
         Box(Modifier.fillMaxWidth().fillMaxHeight(), contentAlignment = Alignment.Center) {
-            Text("No calculations yet", color = Grey, fontSize = 16.sp)
+            Text("No history yet · 0 items", color = Grey, fontSize = 16.sp)
         }
     } else {
         LazyColumn(
