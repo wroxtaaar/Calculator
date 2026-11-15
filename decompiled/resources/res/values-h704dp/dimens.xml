@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="calculator_display_margin_title">22dp</dimen>
+</resources>

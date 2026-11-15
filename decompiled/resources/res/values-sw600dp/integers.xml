@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="design_snackbar_text_max_lines">1</integer>
+    <integer name="keguard_one_col_weight">130</integer>
+    <integer name="keyguard_equal_layout_rowWeight">122</integer>
+    <integer name="keyguard_halfmiddle_layout_columnWeight_land">9</integer>
+    <integer name="keyguard_layout_columnWeight">130</integer>
+    <integer name="keyguard_layout_columnWeight_land">58</integer>
+    <integer name="keyguard_layout_rowWeight">56</integer>
+    <integer name="keyguard_layout_rowWeight_land">56</integer>
+    <integer name="keyguard_middle_layout_columnWeight">23</integer>
+    <integer name="keyguard_middle_layout_columnWeight_land">18</integer>
+    <integer name="keyguard_middle_layout_rowWeight">10</integer>
+    <integer name="keyguard_middle_layout_rowWeight_land">10</integer>
+</resources>

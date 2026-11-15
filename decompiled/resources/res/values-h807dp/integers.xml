@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="keguard_one_col_weight">108</integer>
+    <integer name="keyguard_middle_layout_columnWeight">29</integer>
+</resources>

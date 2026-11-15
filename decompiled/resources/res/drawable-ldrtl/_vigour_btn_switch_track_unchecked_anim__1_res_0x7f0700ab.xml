@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt" android:ordering="together">
+    <objectAnimator
+        android:interpolator="@drawable/__vigour_btn_switch_track_unchecked_anim__1__0_res_0x7f070057"
+        android:duration="300"
+        android:startOffset="0"
+        android:valueFrom="@color/vigour_switch_thumb_checked_disable_color"
+        android:valueTo="@color/vigour_switch_track_uncheck_color"
+        android:valueType="colorType"
+        android:propertyName="fillColor"/>
+</set>

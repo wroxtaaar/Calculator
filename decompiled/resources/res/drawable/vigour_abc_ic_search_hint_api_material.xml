@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="24dp"
+    android:width="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@color/searchview_icon"
+        android:pathData="M11.1739,4C15.1359,4 18.3477,7.2118 18.3477,11.1739C18.3477,12.7852 17.8164,14.2725 16.9195,15.4701L19.1452,17.6959C19.5454,18.0961 19.5454,18.745 19.1452,19.1452C18.745,19.5454 18.0961,19.5454 17.6959,19.1452L15.4701,16.9195C14.2725,17.8164 12.7852,18.3477 11.1739,18.3477C7.2118,18.3477 4,15.1359 4,11.1739C4,7.2118 7.2118,4 11.1739,4ZM11.1739,6.1778C8.4146,6.1778 6.1778,8.4146 6.1778,11.1739C6.1778,13.9331 8.4146,16.1699 11.1739,16.1699C12.1787,16.1699 13.134,15.8747 13.9466,15.3308L14.1646,15.1764L14.743,14.743L15.1764,14.1646C15.765,13.3787 16.1093,12.4417 16.1626,11.4466L16.1699,11.1739C16.1699,8.4146 13.9331,6.1778 11.1739,6.1778Z"
+        android:strokeColor="#00000000"
+        android:strokeWidth="1"
+        android:strokeAlpha="0.1"
+        android:fillAlpha="0.1"
+        android:fillType="nonZero"/>
+</vector>

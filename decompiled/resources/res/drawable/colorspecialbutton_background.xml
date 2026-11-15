@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="60dp"
+    android:width="74dp"
+    android:viewportWidth="74"
+    android:viewportHeight="60">
+    <path
+        android:fillColor="@color/bt_special_button_background"
+        android:pathData="M30,3L44,3A27,27 0,0 1,71 30L71,30A27,27 0,0 1,44 57L30,57A27,27 0,0 1,3 30L3,30A27,27 0,0 1,30 3z"
+        android:strokeColor="#00000000"
+        android:strokeWidth="1"
+        android:fillType="evenOdd"/>
+</vector>

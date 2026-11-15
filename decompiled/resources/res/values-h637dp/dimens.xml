@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="calculator_display_margin_title">10dp</dimen>
+    <dimen name="calculator_margintop_historybutton">16dp</dimen>
+    <dimen name="calculator_paddingbottom_portrait">8dp</dimen>
+    <dimen name="divide_line_space">0dp</dimen>
+    <dimen name="exchange_currency_info_height">38dp</dimen>
+    <dimen name="exchange_input_all_height">72dp</dimen>
+    <dimen name="exchange_input_margin_top">6dp</dimen>
+    <dimen name="exchange_net_text_top">8dp</dimen>
+    <dimen name="input_margin_top">6dp</dimen>
+    <dimen name="keybord_ex_height">324dp</dimen>
+    <dimen name="keybord_height">318dp</dimen>
+    <dimen name="rom_four_calres_padding_top">73dp</dimen>
+</resources>

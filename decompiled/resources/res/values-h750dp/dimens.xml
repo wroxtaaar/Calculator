@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="calculator_display_margin_title">32dp</dimen>
+    <dimen name="input_margin_top">14dp</dimen>
+    <dimen name="search_result_empty_margin_top">138dp</dimen>
+</resources>

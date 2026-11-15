@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="27dp"
+    android:width="35dp"
+    android:viewportWidth="35"
+    android:viewportHeight="27">
+    <path
+        android:fillColor="@color/bt_number_background"
+        android:pathData="M10,4L25,4A10,10 0,0 1,35 14L35,14A10,10 0,0 1,25 24L10,24A10,10 0,0 1,0 14L0,14A10,10 0,0 1,10 4z"
+        android:strokeColor="#00000000"
+        android:strokeWidth="1"
+        android:fillType="evenOdd"/>
+</vector>

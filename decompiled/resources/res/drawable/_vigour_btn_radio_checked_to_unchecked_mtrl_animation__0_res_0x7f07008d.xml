@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:height="24dp"
+    android:width="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <group android:name="_R_G">
+        <group
+            android:name="_R_G_L_0_G"
+            android:pivotX="48"
+            android:pivotY="48"
+            android:scaleX="0.25"
+            android:scaleY="0.25"
+            android:translateX="-36"
+            android:translateY="-36">
+            <group
+                android:name="_R_G_L_0_G_L_1_G"
+                android:pivotX="12"
+                android:pivotY="12"
+                android:scaleX="4"
+                android:scaleY="4"
+                android:translateX="36"
+                android:translateY="36">
+                <path
+                    android:name="_R_G_L_0_G_L_1_G_D_0_P_0"
+                    android:fillColor="@color/vigour_checkbox_color"
+                    android:pathData=" M12 3 C16.97,3 21,7.03 21,12 C21,16.97 16.97,21 12,21 C7.03,21 3,16.97 3,12 C3,7.03 7.03,3 12,3c  M12 5.25 C8.27,5.25 5.25,8.27 5.25,12 C5.25,15.73 8.27,18.75 12,18.75 C15.73,18.75 18.75,15.73 18.75,12 C18.75,8.27 15.73,5.25 12,5.25c "
+                    android:fillAlpha="1"
+                    android:fillType="nonZero"/>
+            </group>
+            <group
+                android:name="_R_G_L_0_G_L_0_G"
+                android:translateX="48"
+                android:translateY="48">
+                <clip-path
+                    android:name="_R_G_L_0_G_L_0_G_D_1_P_0"
+                    android:fillColor="#ff0000"
+                    android:pathData=" M-0.25 -16.94 C9.1,-16.94 16.69,-9.35 16.69,0 C16.69,9.35 9.1,16.94 -0.25,16.94 C-9.6,16.94 -17.19,9.35 -17.19,0 C-17.19,-9.35 -9.6,-16.94 -0.25,-16.94c "
+                    android:fillAlpha="1"
+                    android:fillType="nonZero"/>
+                <path
+                    android:name="_R_G_L_0_G_L_0_G_D_0_P_0"
+                    android:pathData=" M-0.25 -19.87 C10.73,-19.87 19.63,-10.98 19.63,0 C19.63,10.98 10.73,19.88 -0.25,19.88 C-11.23,19.88 -20.12,10.98 -20.12,0 C-20.12,-10.98 -11.23,-19.87 -0.25,-19.87c "
+                    android:strokeColor="@color/vigour_checkbox_color"
+                    android:strokeWidth="62"
+                    android:strokeLineCap="round"
+                    android:strokeLineJoin="round"
+                    android:strokeAlpha="1"/>
+            </group>
+        </group>
+    </group>
+    <group android:name="time_group"/>
+</vector>

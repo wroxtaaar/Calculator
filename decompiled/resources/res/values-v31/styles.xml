@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppThemeOverlay" parent="@style/ThemeOverlay.Vigour.DynamicColors.DayNight">
+        <item name="android:windowBackground">@color/status_bar_color</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/status_bar_color</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">1</item>
+        <item name="colorAccent">@color/vigour_colorAccent</item>
+        <item name="colorPrimary">@color/vigour_colorAccent</item>
+    </style>
+    <style name="SettingTheme" parent="@style/Theme.Vigour.DayNight">
+        <item name="android:windowBackground">@color/status_bar_color_material</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Activity</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:splitMotionEvents">false</item>
+        <item name="android:windowEnableSplitTouch">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/status_bar_color_material</item>
+        <item name="android:navigationBarColor">@color/navagation_bar_color_material</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:defaultFocusHighlightEnabled">false</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:forceDarkAllowed">true</item>
+        <item name="actionBarStyle">@style/myActionBarStyle</item>
+    </style>
+    <style name="SettingThemeOverlay" parent="@style/ThemeOverlay.Vigour.DynamicColors.DayNight">
+        <item name="android:windowBackground">@color/status_bar_color</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Activity</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:splitMotionEvents">false</item>
+        <item name="android:windowEnableSplitTouch">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/status_bar_color</item>
+        <item name="android:navigationBarColor">@color/navagation_bar_color</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:defaultFocusHighlightEnabled">false</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:forceDarkAllowed">true</item>
+        <item name="actionBarStyle">@style/myActionBarStyle</item>
+    </style>
+    <style name="TextAppearance.Vigour.Widget.PopupMenu.Header" parent="@style/TextAppearance.AppCompat.Widget.PopupMenu.Header">
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+    <style name="Theme.Material3.DynamicColors.Dark" parent="@style/Theme.Material3.Dark">
+        <item name="android:colorBackground">@color/m3_sys_color_dynamic_dark_background</item>
+        <item name="android:textColorPrimary">@color/m3_dynamic_dark_default_color_primary_text</item>
+        <item name="android:textColorPrimaryDisableOnly">@color/m3_dynamic_dark_primary_text_disable_only</item>
+        <item name="android:textColorSecondary">@color/m3_dynamic_dark_default_color_secondary_text</item>
+        <item name="android:textColorPrimaryInverse">@color/m3_dynamic_default_color_primary_text</item>
+        <item name="android:textColorSecondaryInverse">@color/m3_dynamic_default_color_secondary_text</item>
+        <item name="android:textColorHintInverse">@color/m3_dynamic_hint_foreground</item>
+        <item name="android:textColorHighlight">@color/m3_dynamic_dark_highlighted_text</item>
+        <item name="android:textColorHint">@color/m3_dynamic_dark_hint_foreground</item>
+        <item name="android:textColorTertiary">@color/m3_dynamic_dark_default_color_secondary_text</item>
+        <item name="android:textColorTertiaryInverse">@color/m3_dynamic_default_color_secondary_text</item>
+        <item name="android:textColorPrimaryInverseDisableOnly">@color/m3_dynamic_primary_text_disable_only</item>
+        <item name="android:textColorAlertDialogListItem">@color/m3_dynamic_dark_default_color_primary_text</item>
+        <item name="android:textColorHighlightInverse">@color/m3_dynamic_highlighted_text</item>
+        <item name="colorError">@color/m3_sys_color_dark_error</item>
+        <item name="colorErrorContainer">@color/m3_sys_color_dark_error_container</item>
+        <item name="colorOnBackground">@color/m3_sys_color_dynamic_dark_on_background</item>
+        <item name="colorOnError">@color/m3_sys_color_dark_on_error</item>
+        <item name="colorOnErrorContainer">@color/m3_sys_color_dark_on_error_container</item>
+        <item name="colorOnPrimary">@color/m3_sys_color_dynamic_dark_on_primary</item>
+        <item name="colorOnPrimaryContainer">@color/m3_sys_color_dynamic_dark_on_primary_container</item>
+        <item name="colorOnSecondary">@color/m3_sys_color_dynamic_dark_on_secondary</item>
+        <item name="colorOnSecondaryContainer">@color/m3_sys_color_dynamic_dark_on_secondary_container</item>
+        <item name="colorOnSurface">@color/m3_sys_color_dynamic_dark_on_surface</item>
+        <item name="colorOnSurfaceInverse">@color/m3_sys_color_dynamic_dark_inverse_on_surface</item>
+        <item name="colorOnSurfaceVariant">@color/m3_sys_color_dynamic_dark_on_surface_variant</item>
+        <item name="colorOnTertiary">@color/m3_sys_color_dynamic_dark_on_tertiary</item>
+        <item name="colorOnTertiaryContainer">@color/m3_sys_color_dynamic_dark_on_tertiary_container</item>
+        <item name="colorOutline">@color/m3_sys_color_dynamic_dark_outline</item>
+        <item name="colorPrimary">@color/m3_sys_color_dynamic_dark_primary</item>
+        <item name="colorPrimaryContainer">@color/m3_sys_color_dynamic_dark_primary_container</item>
+        <item name="colorPrimaryInverse">@color/m3_sys_color_dynamic_dark_inverse_primary</item>
+        <item name="colorSecondary">@color/m3_sys_color_dynamic_dark_secondary</item>
+        <item name="colorSecondaryContainer">@color/m3_sys_color_dynamic_dark_secondary_container</item>
+        <item name="colorSurface">@color/m3_sys_color_dynamic_dark_surface</item>
+        <item name="colorSurfaceInverse">@color/m3_sys_color_dynamic_dark_inverse_surface</item>
+        <item name="colorSurfaceVariant">@color/m3_sys_color_dynamic_dark_surface_variant</item>
+        <item name="colorTertiary">@color/m3_sys_color_dynamic_dark_tertiary</item>
+        <item name="colorTertiaryContainer">@color/m3_sys_color_dynamic_dark_tertiary_container</item>
+    </style>
+    <style name="Theme.Material3.DynamicColors.Light" parent="@style/Theme.Material3.Light">
+        <item name="android:colorBackground">@color/m3_sys_color_dynamic_light_background</item>
+        <item name="android:textColorPrimary">@color/m3_dynamic_default_color_primary_text</item>
+        <item name="android:textColorPrimaryDisableOnly">@color/m3_dynamic_primary_text_disable_only</item>
+        <item name="android:textColorSecondary">@color/m3_dynamic_default_color_secondary_text</item>
+        <item name="android:textColorPrimaryInverse">@color/m3_dynamic_dark_default_color_primary_text</item>
+        <item name="android:textColorSecondaryInverse">@color/m3_dynamic_dark_default_color_secondary_text</item>
+        <item name="android:textColorHintInverse">@color/m3_dynamic_dark_hint_foreground</item>
+        <item name="android:textColorHighlight">@color/m3_dynamic_highlighted_text</item>
+        <item name="android:textColorHint">@color/m3_dynamic_hint_foreground</item>
+        <item name="android:textColorTertiary">@color/m3_dynamic_default_color_secondary_text</item>
+        <item name="android:textColorTertiaryInverse">@color/m3_dynamic_dark_default_color_secondary_text</item>
+        <item name="android:textColorPrimaryInverseDisableOnly">@color/m3_dynamic_dark_primary_text_disable_only</item>
+        <item name="android:textColorAlertDialogListItem">@color/m3_dynamic_default_color_primary_text</item>
+        <item name="android:textColorHighlightInverse">@color/m3_dynamic_dark_highlighted_text</item>
+        <item name="colorError">@color/m3_sys_color_light_error</item>
+        <item name="colorErrorContainer">@color/m3_sys_color_light_error_container</item>
+        <item name="colorOnBackground">@color/m3_sys_color_dynamic_light_on_background</item>
+        <item name="colorOnError">@color/m3_sys_color_light_on_error</item>
+        <item name="colorOnErrorContainer">@color/m3_sys_color_light_on_error_container</item>
+        <item name="colorOnPrimary">@color/m3_sys_color_dynamic_light_on_primary</item>
+        <item name="colorOnPrimaryContainer">@color/m3_sys_color_dynamic_light_on_primary_container</item>
+        <item name="colorOnSecondary">@color/m3_sys_color_dynamic_light_on_secondary</item>
+        <item name="colorOnSecondaryContainer">@color/m3_sys_color_dynamic_light_on_secondary_container</item>
+        <item name="colorOnSurface">@color/m3_sys_color_dynamic_light_on_surface</item>
+        <item name="colorOnSurfaceInverse">@color/m3_sys_color_dynamic_light_inverse_on_surface</item>
+        <item name="colorOnSurfaceVariant">@color/m3_sys_color_dynamic_light_on_surface_variant</item>
+        <item name="colorOnTertiary">@color/m3_sys_color_dynamic_light_on_tertiary</item>
+        <item name="colorOnTertiaryContainer">@color/m3_sys_color_dynamic_light_on_tertiary_container</item>
+        <item name="colorOutline">@color/m3_sys_color_dynamic_light_outline</item>
+        <item name="colorPrimary">@color/m3_sys_color_dynamic_light_primary</item>
+        <item name="colorPrimaryContainer">@color/m3_sys_color_dynamic_light_primary_container</item>
+        <item name="colorPrimaryInverse">@color/m3_sys_color_dynamic_light_inverse_primary</item>
+        <item name="colorSecondary">@color/m3_sys_color_dynamic_light_secondary</item>
+        <item name="colorSecondaryContainer">@color/m3_sys_color_dynamic_light_secondary_container</item>
+        <item name="colorSurface">@color/m3_sys_color_dynamic_light_surface</item>
+        <item name="colorSurfaceInverse">@color/m3_sys_color_dynamic_light_inverse_surface</item>
+        <item name="colorSurfaceVariant">@color/m3_sys_color_dynamic_light_surface_variant</item>
+        <item name="colorTertiary">@color/m3_sys_color_dynamic_light_tertiary</item>
+        <item name="colorTertiaryContainer">@color/m3_sys_color_dynamic_light_tertiary_container</item>
+    </style>
+    <style name="Theme.Vigour.DayNight" parent="@style/Theme.Vigour">
+        <item name="android:datePickerStyle">@style/MaterialAlertDialog.MaterialComponents.Picker.Date.Calendar</item>
+        <item name="android:colorControlHighlight">@android:color/system_neutral1_200</item>
+        <item name="android:navigationBarColor">?android:attr/colorBackground</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:textAppearancePopupMenuHeader">@style/TextAppearance.Vigour.Widget.PopupMenu.Header</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="actionBarPopupTheme">@null</item>
+        <item name="alertDialogTheme">@style/Vigour.Dialog.V31</item>
+        <item name="colorOnSurface">@color/vigour_color_dialog_text_color</item>
+        <item name="colorOnSurfaceInverse">@color/vigour_color_on_surface_inverse</item>
+        <item name="colorOutline">@color/vigour_color_outline</item>
+        <item name="colorPrimaryContainer">@color/vigour_color_primary_container</item>
+        <item name="colorPrimaryDark">?android:attr/colorBackground</item>
+        <item name="colorSecondary">@color/vigour_colorSecondary</item>
+        <item name="colorSurface">@color/vigour_colorBackground</item>
+        <item name="colorTertiary">@color/vigour_color_primary_container</item>
+        <item name="elevationOverlayEnabled">false</item>
+        <item name="popupMenuBackground">@drawable/vigour_popup_background</item>
+        <item name="progressBarStyle">@style/Widget.Vigour.Progressbar</item>
+        <item name="textAppearancePopupMenuHeader">@style/TextAppearance.Vigour.Widget.PopupMenu.Header</item>
+        <item name="toolbarSurfaceStyle">@style/Widget.Vigour.Toolbar.Surface</item>
+    </style>
+    <style name="Theme.Vigour.Light" parent="@style/Theme.Vigour.Vos.Light">
+        <item name="android:datePickerStyle">@style/MaterialAlertDialog.MaterialComponents.Picker.Date.Calendar</item>
+        <item name="android:navigationBarColor">?android:attr/colorBackground</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:textAppearancePopupMenuHeader">@style/TextAppearance.Vigour.Widget.PopupMenu.Header</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="actionBarPopupTheme">@null</item>
+        <item name="alertDialogTheme">@style/Vigour.Dialog.V31</item>
+        <item name="colorOnSurface">@color/vigour_color_dialog_text_color</item>
+        <item name="colorOnSurfaceInverse">@color/vigour_color_on_surface_inverse</item>
+        <item name="colorOutline">@color/vigour_color_outline</item>
+        <item name="colorPrimaryContainer">@color/vigour_color_primary_container</item>
+        <item name="colorPrimaryDark">?android:attr/colorBackground</item>
+        <item name="colorSecondary">@color/vigour_colorSecondary</item>
+        <item name="colorSurface">@color/vigour_colorBackground</item>
+        <item name="colorTertiary">@color/vigour_color_primary_container</item>
+        <item name="elevationOverlayEnabled">false</item>
+        <item name="popupMenuBackground">@drawable/vigour_popup_background</item>
+        <item name="progressBarStyle">@style/Widget.Vigour.Progressbar</item>
+        <item name="textAppearancePopupMenuHeader">@style/TextAppearance.Vigour.Widget.PopupMenu.Header</item>
+        <item name="toolbarSurfaceStyle">@style/Widget.Vigour.Toolbar.Surface</item>
+    </style>
+    <style name="ThemeOverlay.Material3.DynamicColors.Dark" parent="">
+        <item name="android:colorBackground">@color/m3_sys_color_dynamic_dark_background</item>
+        <item name="android:textColorPrimary">@color/m3_dynamic_dark_default_color_primary_text</item>
+        <item name="android:textColorPrimaryDisableOnly">@color/m3_dynamic_dark_primary_text_disable_only</item>
+        <item name="android:textColorSecondary">@color/m3_dynamic_dark_default_color_secondary_text</item>
+        <item name="android:textColorPrimaryInverse">@color/m3_dynamic_default_color_primary_text</item>
+        <item name="android:textColorSecondaryInverse">@color/m3_dynamic_default_color_secondary_text</item>
+        <item name="android:textColorHintInverse">@color/m3_dynamic_hint_foreground</item>
+        <item name="android:textColorHighlight">@color/m3_dynamic_dark_highlighted_text</item>
+        <item name="android:textColorHint">@color/m3_dynamic_dark_hint_foreground</item>
+        <item name="android:textColorTertiary">@color/m3_dynamic_dark_default_color_secondary_text</item>
+        <item name="android:textColorTertiaryInverse">@color/m3_dynamic_default_color_secondary_text</item>
+        <item name="android:textColorPrimaryInverseDisableOnly">@color/m3_dynamic_primary_text_disable_only</item>
+        <item name="android:textColorAlertDialogListItem">@color/m3_dynamic_dark_default_color_primary_text</item>
+        <item name="android:textColorHighlightInverse">@color/m3_dynamic_highlighted_text</item>
+        <item name="colorError">@color/m3_sys_color_dark_error</item>
+        <item name="colorErrorContainer">@color/m3_sys_color_dark_error_container</item>
+        <item name="colorOnBackground">@color/m3_sys_color_dynamic_dark_on_background</item>
+        <item name="colorOnError">@color/m3_sys_color_dark_on_error</item>
+        <item name="colorOnErrorContainer">@color/m3_sys_color_dark_on_error_container</item>
+        <item name="colorOnPrimary">@color/m3_sys_color_dynamic_dark_on_primary</item>
+        <item name="colorOnPrimaryContainer">@color/m3_sys_color_dynamic_dark_on_primary_container</item>
+        <item name="colorOnSecondary">@color/m3_sys_color_dynamic_dark_on_secondary</item>
+        <item name="colorOnSecondaryContainer">@color/m3_sys_color_dynamic_dark_on_secondary_container</item>
+        <item name="colorOnSurface">@color/m3_sys_color_dynamic_dark_on_surface</item>
+        <item name="colorOnSurfaceInverse">@color/m3_sys_color_dynamic_dark_inverse_on_surface</item>
+        <item name="colorOnSurfaceVariant">@color/m3_sys_color_dynamic_dark_on_surface_variant</item>
+        <item name="colorOnTertiary">@color/m3_sys_color_dynamic_dark_on_tertiary</item>
+        <item name="colorOnTertiaryContainer">@color/m3_sys_color_dynamic_dark_on_tertiary_container</item>
+        <item name="colorOutline">@color/m3_sys_color_dynamic_dark_outline</item>
+        <item name="colorPrimary">@color/m3_sys_color_dynamic_dark_primary</item>
+        <item name="colorPrimaryContainer">@color/m3_sys_color_dynamic_dark_primary_container</item>
+        <item name="colorPrimaryInverse">@color/m3_sys_color_dynamic_dark_inverse_primary</item>
+        <item name="colorSecondary">@color/m3_sys_color_dynamic_dark_secondary</item>
+        <item name="colorSecondaryContainer">@color/m3_sys_color_dynamic_dark_secondary_container</item>
+        <item name="colorSurface">@color/m3_sys_color_dynamic_dark_surface</item>
+        <item name="colorSurfaceInverse">@color/m3_sys_color_dynamic_dark_inverse_surface</item>
+        <item name="colorSurfaceVariant">@color/m3_sys_color_dynamic_dark_surface_variant</item>
+        <item name="colorTertiary">@color/m3_sys_color_dynamic_dark_tertiary</item>
+        <item name="colorTertiaryContainer">@color/m3_sys_color_dynamic_dark_tertiary_container</item>
+    </style>
+    <style name="ThemeOverlay.Material3.DynamicColors.Light" parent="">
+        <item name="android:colorBackground">@color/m3_sys_color_dynamic_light_background</item>
+        <item name="android:textColorPrimary">@color/m3_dynamic_default_color_primary_text</item>
+        <item name="android:textColorPrimaryDisableOnly">@color/m3_dynamic_primary_text_disable_only</item>
+        <item name="android:textColorSecondary">@color/m3_dynamic_default_color_secondary_text</item>
+        <item name="android:textColorPrimaryInverse">@color/m3_dynamic_dark_default_color_primary_text</item>
+        <item name="android:textColorSecondaryInverse">@color/m3_dynamic_dark_default_color_secondary_text</item>
+        <item name="android:textColorHintInverse">@color/m3_dynamic_dark_hint_foreground</item>
+        <item name="android:textColorHighlight">@color/m3_dynamic_highlighted_text</item>
+        <item name="android:textColorHint">@color/m3_dynamic_hint_foreground</item>
+        <item name="android:textColorTertiary">@color/m3_dynamic_default_color_secondary_text</item>
+        <item name="android:textColorTertiaryInverse">@color/m3_dynamic_dark_default_color_secondary_text</item>
+        <item name="android:textColorPrimaryInverseDisableOnly">@color/m3_dynamic_dark_primary_text_disable_only</item>
+        <item name="android:textColorAlertDialogListItem">@color/m3_dynamic_default_color_primary_text</item>
+        <item name="android:textColorHighlightInverse">@color/m3_dynamic_dark_highlighted_text</item>
+        <item name="colorError">@color/m3_sys_color_light_error</item>
+        <item name="colorErrorContainer">@color/m3_sys_color_light_error_container</item>
+        <item name="colorOnBackground">@color/m3_sys_color_dynamic_light_on_background</item>
+        <item name="colorOnError">@color/m3_sys_color_light_on_error</item>
+        <item name="colorOnErrorContainer">@color/m3_sys_color_light_on_error_container</item>
+        <item name="colorOnPrimary">@color/m3_sys_color_dynamic_light_on_primary</item>
+        <item name="colorOnPrimaryContainer">@color/m3_sys_color_dynamic_light_on_primary_container</item>
+        <item name="colorOnSecondary">@color/m3_sys_color_dynamic_light_on_secondary</item>
+        <item name="colorOnSecondaryContainer">@color/m3_sys_color_dynamic_light_on_secondary_container</item>
+        <item name="colorOnSurface">@color/m3_sys_color_dynamic_light_on_surface</item>
+        <item name="colorOnSurfaceInverse">@color/m3_sys_color_dynamic_light_inverse_on_surface</item>
+        <item name="colorOnSurfaceVariant">@color/m3_sys_color_dynamic_light_on_surface_variant</item>
+        <item name="colorOnTertiary">@color/m3_sys_color_dynamic_light_on_tertiary</item>
+        <item name="colorOnTertiaryContainer">@color/m3_sys_color_dynamic_light_on_tertiary_container</item>
+        <item name="colorOutline">@color/m3_sys_color_dynamic_light_outline</item>
+        <item name="colorPrimary">@color/m3_sys_color_dynamic_light_primary</item>
+        <item name="colorPrimaryContainer">@color/m3_sys_color_dynamic_light_primary_container</item>
+        <item name="colorPrimaryInverse">@color/m3_sys_color_dynamic_light_inverse_primary</item>
+        <item name="colorSecondary">@color/m3_sys_color_dynamic_light_secondary</item>
+        <item name="colorSecondaryContainer">@color/m3_sys_color_dynamic_light_secondary_container</item>
+        <item name="colorSurface">@color/m3_sys_color_dynamic_light_surface</item>
+        <item name="colorSurfaceInverse">@color/m3_sys_color_dynamic_light_inverse_surface</item>
+        <item name="colorSurfaceVariant">@color/m3_sys_color_dynamic_light_surface_variant</item>
+        <item name="colorTertiary">@color/m3_sys_color_dynamic_light_tertiary</item>
+        <item name="colorTertiaryContainer">@color/m3_sys_color_dynamic_light_tertiary_container</item>
+    </style>
+    <style name="ThemeVivo" parent="@style/Theme.Vigour.DayNight">
+        <item name="android:windowBackground">@color/white_window_background_color</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/status_bar_color_material</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">1</item>
+        <item name="colorAccent">@color/vigour_colorAccent</item>
+    </style>
+    <style name="Vigour.Dialog.V31" parent="@style/Vigour.Dialog">
+        <item name="android:colorBackground">?attr/colorSurface</item>
+    </style>
+    <style name="Vigour.TimePicker.Picker.Date.Header.Text" parent="@style/TextAppearance.Vigour.TimePicker.TimeLabel">
+        <item name="android:textColor">@color/primary_text_activated_vigour_inverse</item>
+    </style>
+    <style name="Vigour.Widget.Toolbar" parent="@style/Widget.MaterialComponents.Toolbar">
+        <item name="android:background">?attr/colorSurface</item>
+        <item name="android:minHeight">@dimen/vigour_toolbar_default_height</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">11dp</item>
+        <item name="buttonGravity">center_vertical</item>
+        <item name="contentInsetStart">?attr/vigour_header_title_contentStart</item>
+        <item name="contentInsetStartWithNavigation">58dp</item>
+        <item name="subtitleTextAppearance">@style/VigourTextAppearanceSubtitle1</item>
+        <item name="titleMargin">0dp</item>
+        <item name="titleTextAppearance">@style/VigourTextAppearanceHeadline</item>
+        <item name="titleTextColor">@color/vigour_actionBar_colorPrimary</item>
+    </style>
+    <style name="VigourSwitchCompatStyle" parent="@style/Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="android:thumb">@drawable/vigour_btn_switch_thumb</item>
+        <item name="showText">false</item>
+        <item name="track">@drawable/vigour_abc_btn_switch_anim</item>
+    </style>
+    <style name="VigourSwitchStyle" parent="@style/Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="android:thumb">@drawable/vigour_btn_switch_thumb</item>
+        <item name="android:track">@drawable/vigour_abc_btn_switch_anim</item>
+        <item name="android:showText">false</item>
+    </style>
+    <style name="VigourVRadialTimePickerViewStyle" parent="">
+        <item name="vigour_numberSelectorDotColor">@color/vigour_vtimepicker_number_selector_dot_color</item>
+        <item name="vigour_numberSelectorTextColor">@color/vigour_vtimepicker_number_selector_dot_color</item>
+        <item name="vigour_numbersBackgroundColor">@color/vigour_time_picker_num_bg</item>
+        <item name="vigour_numbersInnerTextColor">@color/vigour_vtimepicker_text_color</item>
+        <item name="vigour_numbersSelectorColor">?attr/colorPrimary</item>
+        <item name="vigour_numbersTextColor">@color/vigour_vtimepicker_text_color</item>
+    </style>
+    <style name="Widget.Vigour.CollapsingToolbar" parent="@style/Widget.Design.CollapsingToolbar">
+        <item name="android:background">?attr/colorSurface</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="collapsedTitleTextAppearance">@style/TextAppearance.CollapsedAppBar</item>
+        <item name="expandedTitleGravity">start|top</item>
+        <item name="expandedTitleMarginTop">15dp</item>
+        <item name="expandedTitleTextAppearance">@style/TextAppearance.ExpandedAppBar</item>
+        <item name="maxLines">2</item>
+        <item name="titleEnabled">true</item>
+    </style>
+    <style name="Widget.Vigour.Progressbar" parent="@android:style/Widget.Material.ProgressBar">
+        <item name="android:indeterminateDrawable">@drawable/vigour_progress_normal</item>
+    </style>
+    <style name="Widget.Vigour.TimePicker" parent="@android:style/Widget.Material.TimePicker">
+        <item name="android:headerBackground">@color/vigour_time_picker_num_bg</item>
+        <item name="android:headerTimeTextAppearance">@style/Vigour.TimePicker.Picker.Date.Header.Text</item>
+        <item name="android:numbersBackgroundColor">@color/vigour_time_picker_num_bg</item>
+        <item name="android:numbersSelectorColor">?attr/colorPrimary</item>
+    </style>
+    <style name="Widget.Vigour.Toolbar.Surface" parent="@style/Widget.Material3.Toolbar.Surface">
+        <item name="android:background">?attr/colorSurface</item>
+    </style>
+    <style name="myActionBarStyle" parent="@style/ActionBarStyle.Vigour">
+        <item name="background">@color/status_bar_color</item>
+        <item name="elevation">0dp</item>
+    </style>
+    <style name="notitleBar" parent="@style/Theme.Vigour.DayNight">
+        <item name="android:windowBackground">@color/white_window_background_color</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Activity</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:splitMotionEvents">false</item>
+        <item name="android:windowEnableSplitTouch">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/status_bar_color_material</item>
+        <item name="android:navigationBarColor">@color/navagation_bar_color_material</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:defaultFocusHighlightEnabled">false</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="colorAccent">@color/vigour_colorAccent</item>
+        <item name="searchViewStyle">@style/VigourSearchViewToolbarStyle</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="notitleBarThemeOverlay" parent="@style/ThemeOverlay.Vigour.DynamicColors.DayNight">
+        <item name="android:windowBackground">@color/status_bar_color</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Activity</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:splitMotionEvents">false</item>
+        <item name="android:windowEnableSplitTouch">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/status_bar_color</item>
+        <item name="android:navigationBarColor">@color/navagation_bar_color</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:defaultFocusHighlightEnabled">false</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="colorAccent">@color/vigour_colorAccent</item>
+        <item name="searchViewStyle">@style/VigourSearchViewToolbarStyle</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>

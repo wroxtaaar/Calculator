@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="keyguard_middle_layout_columnWeight">13</integer>
+    <integer name="keyguard_middle_layout_rowWeight">13</integer>
+</resources>

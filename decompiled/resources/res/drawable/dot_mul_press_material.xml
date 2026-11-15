@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="39dp"
+    android:width="54dp"
+    android:viewportWidth="54"
+    android:viewportHeight="39">
+    <path
+        android:fillColor="@color/bt_number_background_press_material"
+        android:pathData="M17.5,2L35.5,2A17.5,17.5 0,0 1,53 19.5L53,19.5A17.5,17.5 0,0 1,35.5 37L17.5,37A17.5,17.5 0,0 1,0 19.5L0,19.5A17.5,17.5 0,0 1,17.5 2z"
+        android:strokeColor="#00000000"
+        android:strokeWidth="1"
+        android:fillType="evenOdd"/>
+    <path
+        android:fillColor="@color/digital_text_color_material"
+        android:pathData="M26.8650492,26.6074219 C27.2361429,26.6074219 27.5177184,26.5065104 27.7097757,26.3046875 C27.901833,26.1028646 27.9978617,25.8522135 27.9978617,25.5527344 C27.9978617,25.2402344 27.901833,24.9798177 27.7097757,24.7714844 C27.5177184,24.563151 27.2361429,24.4589844 26.8650492,24.4589844 C26.4939554,24.4589844 26.2156351,24.563151 26.0300882,24.7714844 C25.8445413,24.9798177 25.7517679,25.2402344 25.7517679,25.5527344 C25.7517679,25.8522135 25.8445413,26.1028646 26.0300882,26.3046875 C26.2156351,26.5065104 26.4939554,26.6074219 26.8650492,26.6074219 Z"
+        android:strokeWidth="1"/>
+</vector>

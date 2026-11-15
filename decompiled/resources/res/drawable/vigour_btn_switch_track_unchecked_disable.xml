@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:height="20dp"
+    android:width="34dp"
+    android:viewportWidth="34"
+    android:viewportHeight="20">
+    <group android:name="_R_G">
+        <group
+            android:name="_R_G_L_0_G"
+            android:pivotX="68"
+            android:pivotY="40"
+            android:scaleX="0.25"
+            android:scaleY="0.25"
+            android:translateX="-51"
+            android:translateY="-30">
+            <group
+                android:name="_R_G_L_0_G_L_1_G"
+                android:translateX="68"
+                android:translateY="40">
+                <path
+                    android:name="_R_G_L_0_G_L_1_G_D_0_P_0"
+                    android:fillColor="@color/vigour_color_switch_track_disable"
+                    android:pathData=" M68 0 C68,0 68,0 68,0 C68,16.56 54.56,30 38,30 C38,30 -38,30 -38,30 C-54.56,30 -68,16.56 -68,0 C-68,0 -68,0 -68,0 C-68,-16.56 -54.56,-30 -38,-30 C-38,-30 38,-30 38,-30 C54.56,-30 68,-16.56 68,0c "
+                    android:fillAlpha="1"
+                    android:fillType="nonZero"/>
+            </group>
+            <group
+                android:name="_R_G_L_0_G_L_0_G"
+                android:translateX="96"
+                android:translateY="40">
+                <path
+                    android:name="_R_G_L_0_G_L_0_G_D_0_P_0"
+                    android:fillColor="@color/vigour_color_switch_thumb_disable"
+                    android:pathData=" M-56 -40 C-33.91,-40 -16,-22.09 -16,0 C-16,22.09 -33.91,40 -56,40 C-78.09,40 -96,22.09 -96,0 C-96,-22.09 -78.09,-40 -56,-40c "
+                    android:fillAlpha="1"
+                    android:fillType="nonZero"/>
+            </group>
+        </group>
+    </group>
+</vector>

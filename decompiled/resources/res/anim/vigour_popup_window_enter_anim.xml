@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shareInterpolator="false"
+    android:zAdjustment="bottom">
+    <scale
+        android:interpolator="@anim/vigour_popup_window_enter_anim_interpolator"
+        android:duration="200"
+        android:pivotX="100%"
+        android:pivotY="0"
+        android:fromXScale="30%"
+        android:toXScale="104.9988%"
+        android:fromYScale="30%"
+        android:toYScale="104.9988%"/>
+    <scale
+        android:interpolator="@anim/vigour_popup_window_enter_anim_spring_interpolator"
+        android:duration="200"
+        android:pivotX="100%"
+        android:pivotY="0"
+        android:startOffset="200"
+        android:fromXScale="100%"
+        android:toXScale="95.2%"
+        android:fromYScale="100%"
+        android:toYScale="95.2%"/>
+    <alpha
+        android:interpolator="@anim/vigour_popup_window_enter_alpha_anim_interpolator"
+        android:duration="200"
+        android:fromAlpha="0"
+        android:toAlpha="1"/>
+</set>

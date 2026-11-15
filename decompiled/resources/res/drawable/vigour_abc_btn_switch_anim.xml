@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:state_enabled="false"
+        android:state_checked="true"
+        android:drawable="@drawable/vigour_btn_switch_track_checked_disable"/>
+    <item
+        android:state_enabled="false"
+        android:drawable="@drawable/vigour_btn_switch_track_unchecked_disable"/>
+    <item
+        android:state_checked="true"
+        android:id="@+id/checked"
+        android:drawable="@drawable/vigour_btn_switch_track_checked"/>
+    <item
+        android:id="@+id/unchecked"
+        android:drawable="@drawable/vigour_btn_switch_track_unchecked"/>
+    <transition
+        android:drawable="@drawable/vigour_btn_switch_track_checked_anim"
+        android:toId="@+id/checked"
+        android:fromId="@+id/unchecked"/>
+    <transition
+        android:drawable="@drawable/vigour_btn_switch_track_unchecked_anim"
+        android:toId="@+id/unchecked"
+        android:fromId="@+id/checked"/>
+</animated-selector>

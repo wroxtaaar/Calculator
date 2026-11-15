@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="calculator_display_margin_title">12dp</dimen>
+    <dimen name="calculator_input_height">90dp</dimen>
+    <dimen name="input_size">60dp</dimen>
+    <dimen name="keybord_height">386dp</dimen>
+    <dimen name="max_result_text_size">60dp</dimen>
+    <dimen name="min_result_text_size">38dp</dimen>
+    <dimen name="result_size">28dp</dimen>
+    <dimen name="search_result_empty_margin_top">76dp</dimen>
+</resources>

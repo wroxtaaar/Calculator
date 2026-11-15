@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners
+        android:topLeftRadius="@dimen/history_radius_size"
+        android:topRightRadius="@dimen/history_radius_size"
+        android:bottomLeftRadius="0dp"
+        android:bottomRightRadius="0dp"/>
+    <solid android:color="@color/history_background_normal"/>
+    <stroke
+        android:width="1dp"
+        android:color="@color/history_stroke"/>
+</shape>

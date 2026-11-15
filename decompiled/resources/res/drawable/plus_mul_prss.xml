@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="39dp"
+    android:width="54dp"
+    android:viewportWidth="54"
+    android:viewportHeight="39">
+    <path
+        android:fillColor="@color/bt_special_button_background_press"
+        android:pathData="M17.5,2L35.5,2A17.5,17.5 0,0 1,53 19.5L53,19.5A17.5,17.5 0,0 1,35.5 37L17.5,37A17.5,17.5 0,0 1,0 19.5L0,19.5A17.5,17.5 0,0 1,17.5 2z"
+        android:strokeColor="#00000000"
+        android:strokeWidth="1"
+        android:fillType="evenOdd"/>
+    <path
+        android:fillColor="@color/function_text_blue_stroke_color"
+        android:pathData="M 27.8740234 24.6742187 L 27.8740234 20.1820312 L 31.8388672 20.1820312 L 31.8388672 18.4730469 L 27.8740234 18.4730469 L 27.8740234 14.3226562 L 26.0576172 14.3226562 L 26.0576172 18.4730469 L 22.0927734 18.4730469 L 22.0927734 20.1820312 L 26.0576172 20.1820312 L 26.0576172 24.6742187 Z"
+        android:strokeWidth="1"/>
+</vector>

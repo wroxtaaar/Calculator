@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <View
+        android:background="@drawable/vigour_preference_list_divider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="?attr/vigour_preference_category_padding_start"
+        android:layout_marginStart="@dimen/vigour_listPreferredItemPadding">
+        <TextView
+            android:textAppearance="@style/Vigour.TextAppearance.Body2"
+            android:textSize="@dimen/vigour_preference_category_title_textSize"
+            android:textColor="@color/vigour_preference_category_title_textColor"
+            android:id="@android:id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:textAllCaps="true"
+            android:textAlignment="viewStart"
+            android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"/>
+        <TextView
+            android:textAppearance="?android:attr/textAppearanceListItemSecondary"
+            android:textColor="?android:attr/textColorSecondary"
+            android:ellipsize="end"
+            android:id="@android:id/summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"/>
+    </LinearLayout>
+</LinearLayout>

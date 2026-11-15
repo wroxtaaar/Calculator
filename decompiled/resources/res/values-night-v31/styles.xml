@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppThemeOverlay" parent="@style/Theme.Vigour.DayNight">
+        <item name="android:windowBackground">@color/status_bar_color</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/status_bar_color_material</item>
+        <item name="android:navigationBarColor">@color/navagation_bar_color</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">1</item>
+        <item name="colorAccent">@color/vigour_colorAccent</item>
+    </style>
+    <style name="SettingThemeOverlay" parent="@style/Theme.Vigour.DayNight">
+        <item name="android:windowBackground">@color/status_bar_color</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Activity</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:splitMotionEvents">false</item>
+        <item name="android:windowEnableSplitTouch">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/status_bar_color_material</item>
+        <item name="android:navigationBarColor">@color/navagation_bar_color</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:defaultFocusHighlightEnabled">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:forceDarkAllowed">true</item>
+        <item name="actionBarStyle">@style/myActionBarStyle</item>
+    </style>
+    <style name="Theme.Vigour.DayNight" parent="@style/Theme.Vigour">
+        <item name="android:windowBackground">@color/vigour_background_color_for_night_mode</item>
+        <item name="android:datePickerStyle">@style/MaterialAlertDialog.MaterialComponents.Picker.Date.Calendar</item>
+        <item name="android:navigationBarColor">@color/vigour_background_color_for_night_mode</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="actionBarPopupTheme">@null</item>
+        <item name="alertDialogTheme">@style/Vigour.Dialog.V31</item>
+        <item name="colorOnSurfaceInverse">@color/vigour_color_on_surface_inverse</item>
+        <item name="colorOutline">@color/vigour_color_outline</item>
+        <item name="colorPrimaryContainer">@color/vigour_color_primary_container</item>
+        <item name="colorPrimaryDark">@color/vigour_background_color_for_night_mode</item>
+        <item name="colorSecondary">@color/vigour_colorSecondary</item>
+        <item name="colorSurface">@color/vigour_colorBackground</item>
+        <item name="colorTertiary">@color/vigour_colorTertiary</item>
+        <item name="elevationOverlayEnabled">false</item>
+        <item name="popupMenuBackground">@drawable/vigour_popup_background</item>
+        <item name="progressBarStyle">@style/Widget.Vigour.Progressbar</item>
+        <item name="toolbarSurfaceStyle">@style/Widget.Vigour.Toolbar.Surface</item>
+    </style>
+    <style name="Theme.Vigour.Light" parent="@style/Theme.Vigour.Vos.Light">
+        <item name="android:windowBackground">@color/vigour_background_color_for_night_mode</item>
+        <item name="android:datePickerStyle">@style/MaterialAlertDialog.MaterialComponents.Picker.Date.Calendar</item>
+        <item name="android:navigationBarColor">@color/vigour_background_color_for_night_mode</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="actionBarPopupTheme">@null</item>
+        <item name="alertDialogTheme">@style/Vigour.Dialog.V31</item>
+        <item name="colorOnSurfaceInverse">@color/vigour_color_on_surface_inverse</item>
+        <item name="colorOutline">@color/vigour_color_outline</item>
+        <item name="colorPrimaryContainer">@color/vigour_color_primary_container</item>
+        <item name="colorPrimaryDark">@color/vigour_background_color_for_night_mode</item>
+        <item name="colorSurface">@color/vigour_colorBackground</item>
+        <item name="elevationOverlayEnabled">false</item>
+        <item name="popupMenuBackground">@drawable/vigour_popup_background</item>
+        <item name="progressBarStyle">@style/Widget.Vigour.Progressbar</item>
+        <item name="toolbarSurfaceStyle">@style/Widget.Vigour.Toolbar.Surface</item>
+    </style>
+    <style name="Vigour.Dialog.MaterialAlert" parent="@style/Vigour.Dialog">
+        <item name="android:windowMinWidthMinor">89%</item>
+        <item name="colorBackgroundFloating">@color/vigour_alertDialog_background_colorSurface</item>
+        <item name="colorSurface">#121212</item>
+    </style>
+    <style name="Vigour.Dialog.V31" parent="@style/Vigour.Dialog">
+        <item name="android:colorBackground">#424242</item>
+    </style>
+    <style name="Vigour.Widget.Toolbar" parent="@style/Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@color/vigour_background_color_for_night_mode</item>
+        <item name="android:minHeight">@dimen/vigour_toolbar_default_height</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">11dp</item>
+        <item name="buttonGravity">center_vertical</item>
+        <item name="contentInsetStart">?attr/vigour_header_title_contentStart</item>
+        <item name="contentInsetStartWithNavigation">58dp</item>
+        <item name="subtitleTextAppearance">@style/VigourTextAppearanceSubtitle1</item>
+        <item name="titleMargin">0dp</item>
+        <item name="titleTextAppearance">@style/VigourTextAppearanceHeadline</item>
+        <item name="titleTextColor">@color/vigour_actionBar_colorPrimary</item>
+    </style>
+    <style name="VigourBottomSheetStyle" parent="@style/Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="backgroundTint">#121212</item>
+        <item name="shapeAppearanceOverlay">@style/VigourBottomSheetShapeApperance</item>
+    </style>
+    <style name="Widget.Vigour.Toolbar.Surface" parent="@style/Widget.Material3.Toolbar.Surface">
+        <item name="android:background">@color/vigour_background_color_for_night_mode</item>
+    </style>
+    <style name="notitleBarThemeOverlay" parent="@style/Theme.Vigour.DayNight">
+        <item name="android:windowBackground">@color/status_bar_color</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Activity</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:splitMotionEvents">false</item>
+        <item name="android:windowEnableSplitTouch">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/status_bar_color_material</item>
+        <item name="android:navigationBarColor">@color/navagation_bar_color</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:defaultFocusHighlightEnabled">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="colorAccent">@color/vigour_colorAccent</item>
+        <item name="searchViewStyle">@style/VigourSearchViewToolbarStyle</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>

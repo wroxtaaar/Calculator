@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="56dp"
+    android:width="238dp"
+    android:viewportWidth="238"
+    android:viewportHeight="56">
+    <path
+        android:fillColor="@color/clear_button_background_pressed_material"
+        android:pathData="M0,0L238,0L238,40.617C238,45.966 237.443,47.906 236.397,49.861C235.351,51.817 233.817,53.351 231.861,54.397C229.906,55.443 227.966,56 222.617,56L15.383,56C10.034,56 8.094,55.443 6.139,54.397C4.183,53.351 2.649,51.817 1.603,49.861C0.557,47.906 0,45.966 -0,40.617L0,0L0,0Z"
+        android:strokeColor="#00000000"
+        android:strokeWidth="1"
+        android:fillType="evenOdd"/>
+</vector>

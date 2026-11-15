@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="39dp"
+    android:width="54dp"
+    android:viewportWidth="54"
+    android:viewportHeight="39">
+    <path
+        android:fillColor="@color/bt_special_button_background_press"
+        android:pathData="M17.5,2L35.5,2A17.5,17.5 0,0 1,53 19.5L53,19.5A17.5,17.5 0,0 1,35.5 37L17.5,37A17.5,17.5 0,0 1,0 19.5L0,19.5A17.5,17.5 0,0 1,17.5 2z"
+        android:strokeColor="#00000000"
+        android:strokeWidth="1"
+        android:fillType="evenOdd"/>
+    <path
+        android:fillColor="@color/function_text_blue_stroke_color"
+        android:pathData="M30.1,13.9 L26.090099,25.181425 L25.1,25.181425 L29.109901,13.9 L30.1,13.9 Z M36.2513522,23.1553697 L36.2513522,24.1553697 L30.3054561,24.1553697 L30.3054561,23.1553697 L36.2513522,23.1553697 Z M21.6095451,14.4025491 L21.609,17.603 L24.3714766,17.6032939 L24.3714766,18.6032939 L21.609,18.603 L21.6095451,21.6042248 L20.6095451,21.6042248 L20.609,18.603 L17.6,18.6032939 L17.6,17.6032939 L20.609,17.603 L20.6095451,14.4025491 L21.6095451,14.4025491 Z"
+        android:strokeColor="@color/function_text_blue_stroke_color"
+        android:strokeWidth="0.5"
+        android:fillType="evenOdd"/>
+</vector>

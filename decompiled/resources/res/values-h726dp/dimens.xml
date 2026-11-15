@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="calculator_display_margin_title">12dp</dimen>
+    <dimen name="calculator_paddingbottom_portrait">22dp</dimen>
+    <dimen name="keybord_ex_height">374dp</dimen>
+    <dimen name="keybord_height">376dp</dimen>
+</resources>

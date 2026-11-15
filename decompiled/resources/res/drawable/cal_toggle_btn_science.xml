@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="26dp"
+    android:width="26dp"
+    android:viewportWidth="26"
+    android:viewportHeight="26">
+    <group
+        android:translateX="6.5"
+        android:translateY="6.5">
+        <group
+            android:translateX="0.3024"
+            android:translateY="0.8">
+            <path
+                android:fillColor="@color/calculator_icon_color"
+                android:pathData="M3.48188808,0.105730964 L3.481,1.96573096 L5.42857143,1.96587783 L5.42857143,3.50142857 L3.481,3.50073096 L3.48188808,5.53430239 L1.94188808,5.53430239 L1.941,3.50073096 L2.76907386e-11,3.50142857 L2.76907386e-11,1.96587783 L1.941,1.96573096 L1.94188808,0.105730964 L3.48188808,0.105730964 Z"
+                android:strokeWidth="1"
+                android:fillAlpha="0.8"
+                android:fillType="evenOdd"/>
+            <path
+                android:fillColor="@color/calculator_icon_color"
+                android:pathData="M 6.96666667 1.96587783 L 12.3952381 1.96587783 L 12.3952381 3.50142857 L 6.96666667 3.50142857 Z"
+                android:strokeWidth="1"
+                android:fillAlpha="0.8"
+                android:fillType="evenOdd"/>
+            <path
+                android:fillColor="@color/calculator_icon_color"
+                android:pathData="M4.08910333,6.58480937 L5.17804777,7.67375382 L3.80252366,9.04780937 L5.17804777,10.423389 L4.08910333,11.5123335 L2.71352366,10.1368094 L1.3394681,11.5123335 L0.250523658,10.423389 L1.62552366,9.04780937 L0.250523658,7.67375382 L1.3394681,6.58480937 L2.71352366,7.95980937 L4.08910333,6.58480937 Z"
+                android:strokeWidth="1"
+                android:fillAlpha="0.9"
+                android:fillType="evenOdd"/>
+        </group>
+    </group>
+    <group
+        android:translateX="13.7"
+        android:translateY="14.3">
+        <path
+            android:fillColor="@color/calculator_icon_color"
+            android:pathData="M -4.79616347e-14 3.33066907e-16 L 5.42857143 3.33066907e-16 L 5.42857143 1.53555074 L -4.79616347e-14 1.53555074 Z"
+            android:strokeWidth="1"
+            android:fillAlpha="0.8"
+            android:fillType="evenOdd"/>
+        <path
+            android:fillColor="@color/calculator_icon_color"
+            android:pathData="M -4.79616347e-14 2.5 L 5.42857143 2.5 L 5.42857143 4.03555074 L -4.79616347e-14 4.03555074 Z"
+            android:strokeWidth="1"
+            android:fillAlpha="0.8"
+            android:fillType="evenOdd"/>
+    </group>
+    <path
+        android:fillColor="@color/calculator_icon_color"
+        android:pathData="M20.5,3.5 C21.6045695,3.5 22.5,4.3954305 22.5,5.5 L22.5,20.5 C22.5,21.6045695 21.6045695,22.5 20.5,22.5 L5.5,22.5 C4.3954305,22.5 3.5,21.6045695 3.5,20.5 L3.5,5.5 C3.5,4.3954305 4.3954305,3.5 5.5,3.5 L20.5,3.5 Z M19.9767677,5.32323232 L6.02323232,5.32323232 C5.636633,5.32323232 5.32323232,5.636633 5.32323232,6.02323232 L5.32323232,6.02323232 L5.32323232,19.9767677 C5.32323232,20.363367 5.636633,20.6767677 6.02323232,20.6767677 L6.02323232,20.6767677 L19.9767677,20.6767677 C20.363367,20.6767677 20.6767677,20.363367 20.6767677,19.9767677 L20.6767677,19.9767677 L20.6767677,6.02323232 C20.6767677,5.636633 20.363367,5.32323232 19.9767677,5.32323232 L19.9767677,5.32323232 Z"
+        android:strokeWidth="1"
+        android:fillAlpha="0.8"
+        android:fillType="evenOdd"/>
+</vector>

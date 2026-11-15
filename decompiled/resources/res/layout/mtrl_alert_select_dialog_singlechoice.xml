@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:textSize="@dimen/vigour_select_dialog_textSize"
+    android:textColor="@color/vigour_select_dialog_color"
+    android:ellipsize="marquee"
+    android:gravity="center"
+    android:id="@android:id/text1"
+    android:paddingLeft="?attr/listPreferredItemPaddingLeft"
+    android:paddingRight="23dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?attr/listPreferredItemHeightSmall"
+    android:drawablePadding="20dp"
+    android:textAlignment="viewStart"
+    android:paddingStart="?attr/listPreferredItemPaddingLeft"
+    android:paddingEnd="23dp"
+    app:drawableEndCompat="?android:attr/listChoiceIndicatorSingle"
+    app:drawableRightCompat="?android:attr/listChoiceIndicatorSingle"/>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:gravity="center"
+        android:id="@android:id/background">
+        <shape
+            android:tint="0x18601e7"
+            android:shape="rectangle">
+            <corners android:radius="@dimen/vigour_progressBarCornerRadius"/>
+            <size android:height="@dimen/vigour_progress_bar_height_material"/>
+            <solid android:color="@color/vigour_white_disabled_material"/>
+        </shape>
+    </item>
+    <item
+        android:gravity="center"
+        android:id="@android:id/secondaryProgress">
+        <scale android:scaleWidth="100%">
+            <shape
+                android:tint="?attr/colorPrimary"
+                android:shape="rectangle">
+                <corners android:radius="@dimen/vigour_progressBarCornerRadius"/>
+                <size android:height="@dimen/vigour_progress_bar_height_material"/>
+                <solid android:color="@color/vigour_white_disabled_material"/>
+            </shape>
+        </scale>
+    </item>
+    <item
+        android:gravity="center"
+        android:id="@android:id/progress">
+        <scale android:scaleWidth="100%">
+            <shape
+                android:tint="?attr/colorPrimary"
+                android:shape="rectangle">
+                <corners android:radius="@dimen/vigour_progressBarCornerRadius"/>
+                <size android:height="@dimen/vigour_progress_bar_height_material"/>
+                <solid android:color="@android:color/white"/>
+            </shape>
+        </scale>
+    </item>
+</layer-list>

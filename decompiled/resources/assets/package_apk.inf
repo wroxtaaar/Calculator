@@ -1,0 +1,12 @@
+vivo.certificate=platform
+vivo.module=Calculator
+vivo.privileged=false
+vivo.uninstallable=true
+vivo.multilib=first
+android.enableR8=true
+android.useAndroidX=true
+vivo.project=VivoCode/android_packages_apps_Calculator
+vivo.branch=refs/tags/baseline_vos_4.0.0.7
+vivo.commitid=21808bdd684b1a97bb552bc1584fc162f35df37c
+vivo.dimension=xxhdpi/vos_5.0/indian/android-34-sysuid
+vivo.sharelib=

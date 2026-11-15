@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:height="24dp"
+    android:width="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <group android:name="_R_G">
+        <group
+            android:name="_R_G_L_0_G"
+            android:pivotX="48"
+            android:pivotY="48"
+            android:scaleX="0.25"
+            android:scaleY="0.25"
+            android:translateX="-36"
+            android:translateY="-36">
+            <group
+                android:name="_R_G_L_0_G_L_2_G"
+                android:translateX="48"
+                android:translateY="48">
+                <clip-path
+                    android:name="_R_G_L_0_G_L_2_G_D_1_P_0"
+                    android:fillColor="#ff0000"
+                    android:pathData=" M-0.25 -30.75 C16.73,-30.75 30.5,-16.98 30.5,0 C30.5,16.98 16.73,30.75 -0.25,30.75 C-17.23,30.75 -31,16.98 -31,0 C-31,-16.98 -17.23,-30.75 -0.25,-30.75c "
+                    android:fillAlpha="1"
+                    android:fillType="nonZero"/>
+                <path
+                    android:name="_R_G_L_0_G_L_2_G_D_0_P_0"
+                    android:pathData=" M-0.25 -31 C16.87,-31 30.75,-17.12 30.75,0 C30.75,17.12 16.87,31 -0.25,31 C-17.37,31 -31.25,17.12 -31.25,0 C-31.25,-17.12 -17.37,-31 -0.25,-31c "
+                    android:strokeColor="@color/vigour_checkbox_color"
+                    android:strokeWidth="0"
+                    android:strokeLineCap="round"
+                    android:strokeLineJoin="round"
+                    android:strokeAlpha="1"/>
+            </group>
+            <group
+                android:name="_R_G_L_0_G_L_1_G"
+                android:translateX="48"
+                android:translateY="48">
+                <path
+                    android:name="_R_G_L_0_G_L_1_G_D_0_P_0"
+                    android:fillColor="@color/vigour_checkbox_color"
+                    android:pathData=" M-0.25 -30.75 C16.73,-30.75 30.5,-16.98 30.5,0 C30.5,16.98 16.73,30.75 -0.25,30.75 C-17.23,30.75 -31,16.98 -31,0 C-31,-16.98 -17.23,-30.75 -0.25,-30.75c "
+                    android:fillAlpha="0"
+                    android:fillType="nonZero"/>
+            </group>
+            <group
+                android:name="_R_G_L_0_G_L_0_G"
+                android:pivotX="12"
+                android:pivotY="12"
+                android:scaleX="4"
+                android:scaleY="4"
+                android:translateX="36"
+                android:translateY="36">
+                <path
+                    android:name="_R_G_L_0_G_L_0_G_D_0_P_0"
+                    android:fillColor="@color/vigour_checkbox_color"
+                    android:pathData=" M12 3 C16.97,3 21,7.03 21,12 C21,16.97 16.97,21 12,21 C7.03,21 3,16.97 3,12 C3,7.03 7.03,3 12,3c  M12 5.19 C8.24,5.19 5.19,8.24 5.19,12 C5.19,15.76 8.24,18.81 12,18.81 C15.76,18.81 18.81,15.76 18.81,12 C18.81,8.24 15.76,5.19 12,5.19c "
+                    android:fillAlpha="1"
+                    android:fillType="nonZero"/>
+            </group>
+        </group>
+    </group>
+    <group android:name="time_group"/>
+</vector>

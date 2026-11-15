@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt" android:ordering="together">
+    <objectAnimator
+        android:interpolator="@drawable/__vigour_btn_checkbox_checked_to_unchecked_mtrl_animation__2__0_res_0x7f070001"
+        android:duration="200"
+        android:startOffset="133"
+        android:valueFrom="M0 0 C0,0 0,0 0,0 C0,0 0,0 0,0 C0,0 0,0 0,0 C0,0 0,0 0,0 C0,0 0,0 0,0 C0,0 0,0 0,0 C0,0 0,0 0,0 C0,0 0,0 0,0c  M-20 -36 C-20,-36 20,-36 20,-36 C28.84,-36 36,-28.84 36,-20 C36,-20 36,20 36,20 C36,28.84 28.84,36 20,36 C20,36 -20,36 -20,36 C-28.84,36 -36,28.84 -36,20 C-36,20 -36,-20 -36,-20 C-36,-28.84 -28.84,-36 -20,-36c "
+        android:valueTo="M-20 -27.2 C-23.96,-27.2 -27.2,-23.96 -27.2,-20 C-27.2,-20 -27.2,20 -27.2,20 C-27.2,23.96 -23.96,27.2 -20,27.2 C-20,27.2 20,27.2 20,27.2 C23.96,27.2 27.2,23.96 27.2,20 C27.2,20 27.2,-20 27.2,-20 C27.2,-23.96 23.96,-27.2 20,-27.2 C20,-27.2 -20,-27.2 -20,-27.2c  M-20 -36 C-20,-36 20,-36 20,-36 C28.84,-36 36,-28.84 36,-20 C36,-20 36,20 36,20 C36,28.84 28.84,36 20,36 C20,36 -20,36 -20,36 C-28.84,36 -36,28.84 -36,20 C-36,20 -36,-20 -36,-20 C-36,-28.84 -28.84,-36 -20,-36c "
+        android:valueType="pathType"
+        android:propertyName="pathData"/>
+</set>

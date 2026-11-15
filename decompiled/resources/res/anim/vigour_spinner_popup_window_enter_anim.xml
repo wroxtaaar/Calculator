@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shareInterpolator="false"
+    android:zAdjustment="bottom">
+    <scale
+        android:interpolator="@anim/vigour_popup_window_enter_anim_interpolator"
+        android:duration="300"
+        android:pivotX="50%"
+        android:pivotY="0"
+        android:fromXScale="0.3"
+        android:toXScale="1"
+        android:fromYScale="0.3"
+        android:toYScale="1"/>
+    <alpha
+        android:interpolator="@anim/vigour_popup_window_enter_alpha_anim_interpolator"
+        android:duration="300"
+        android:fromAlpha="0"
+        android:toAlpha="1"/>
+</set>

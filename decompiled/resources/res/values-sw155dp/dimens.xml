@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="calculator_margintop_historybutton">3dp</dimen>
+    <dimen name="display_mul_formula_height">32dp</dimen>
+    <dimen name="display_mul_layout_height">68dp</dimen>
+</resources>

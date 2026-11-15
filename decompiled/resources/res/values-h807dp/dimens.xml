@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="calculator_paddingbottom_portrait">30dp</dimen>
+    <dimen name="keybord_height">366dp</dimen>
+</resources>

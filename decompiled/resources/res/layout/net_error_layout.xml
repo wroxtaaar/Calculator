@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:id="@+id/net_error"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/net_error_image"
+        android:background="@drawable/reconnet_network_svg"
+        android:layout_width="@dimen/exchange_net_image_height"
+        android:layout_height="@dimen/exchange_net_image_height"
+        android:contentDescription=""/>
+    <TextView
+        android:textSize="@dimen/exchange_net_text_size"
+        android:textColor="@color/exchange_net_notification_text_color"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:id="@+id/net_error_title"
+        android:layout_width="@dimen/exchange_net_text_width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/exchange_net_text_top"
+        android:text="@string/network_error_msg"/>
+    <Button
+        android:id="@+id/net_refresh"
+        android:layout_marginTop="@dimen/exchange_net_setting_button_top"
+        android:text="@string/retry"
+        android:textAllCaps="false"
+        style="@style/net_error_button_style"/>
+    <Button
+        android:id="@+id/net_setting"
+        android:layout_marginTop="@dimen/exchange_net_button_top"
+        android:text="@string/network_setting"
+        android:textAllCaps="false"
+        style="@style/net_error_button_style"/>
+</LinearLayout>

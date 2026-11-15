@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt" android:drawable="@drawable/_vigour_btn_switch_track_unchecked_anim_dynamic_colors_overlay__0_res_0x7f0700af">
+    <target
+        android:name="_R_G_L_0_G_L_1_G_D_0_P_0"
+        android:animation="@drawable/_vigour_btn_switch_track_unchecked_anim_dynamic_colors_overlay__1_res_0x7f0700b0"/>
+    <target
+        android:name="_R_G_L_0_G_L_0_G_D_0_P_0"
+        android:animation="@drawable/_vigour_btn_switch_track_unchecked_anim_dynamic_colors_overlay__2_res_0x7f0700b1"/>
+    <target
+        android:name="_R_G_L_0_G_L_0_G_D_0_P_0"
+        android:animation="@drawable/_vigour_btn_switch_track_unchecked_anim_dynamic_colors_overlay__3_res_0x7f0700b2"/>
+    <target
+        android:name="time_group"
+        android:animation="@drawable/_vigour_btn_switch_track_unchecked_anim_dynamic_colors_overlay__4_res_0x7f0700b3"/>
+</animated-vector>
