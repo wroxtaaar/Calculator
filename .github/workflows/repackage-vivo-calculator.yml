@@ -1,0 +1,113 @@
+name: Build Vivo Calculator clone
+
+# Takes the original APK in extracted/VivoCalculator.apk, gives it its own package name
+# and launcher name so it installs NEXT TO the system calculator, applies anything in
+# mods/ on top, then rebuilds and signs it.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/repackage-vivo-calculator.yml"
+      - "mods/**"
+      - "extracted/VivoCalculator.apk"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vivo-clone-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NEW_PKG: com.mycalc.vivoclone
+  APP_LABEL: Vivo Calc
+  APKTOOL_VERSION: "2.9.3"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Download apktool
+        run: |
+          curl -fsSL -o apktool.jar \
+            "https://github.com/iBotPeaches/Apktool/releases/download/v${APKTOOL_VERSION}/apktool_${APKTOOL_VERSION}.jar"
+
+      - name: Decode original APK
+        run: java -jar apktool.jar d -f extracted/VivoCalculator.apk -o work
+
+      - name: Give the clone its own identity
+        run: |
+          python3 - <<'PY'
+          import os, re, pathlib
+          new = os.environ["NEW_PKG"]
+          label = os.environ["APP_LABEL"]
+          w = pathlib.Path("work")
+
+          mf = w / "AndroidManifest.xml"
+          t = mf.read_text(encoding="utf-8")
+          assert 'package="com.vivo.calculator"' in t, "unexpected manifest, package attribute not found"
+          t = t.replace('package="com.vivo.calculator"', f'package="{new}"', 1)
+          # these two would clash with the system calculator and block installation
+          t = t.replace("com.vivo.abe.permission.exidentifier.provider", f"{new}.permission.exidentifier.provider")
+          t = t.replace("com.vivo.calculator.CountryProvide", f"{new}.CountryProvide")
+          # don't compete with the system calculator for "open calculator" requests
+          t = re.sub(r'\s*<category android:name="android.intent.category.APP_CALCULATOR"\s*/>', "", t)
+          mf.write_text(t, encoding="utf-8")
+
+          # the provider authority is also a string inside the code
+          n = 0
+          for p in w.glob("smali*/**/*.smali"):
+              s = p.read_text(encoding="utf-8")
+              if "com.vivo.calculator.CountryProvide" in s:
+                  p.write_text(s.replace("com.vivo.calculator.CountryProvide", f"{new}.CountryProvide"), encoding="utf-8")
+                  n += 1
+          print("patched provider authority in", n, "smali file(s)")
+
+          # launcher name, in every language
+          for p in w.glob("res/values*/strings.xml"):
+              s = p.read_text(encoding="utf-8")
+              s2 = re.sub(r'(<string name="app_name">)[^<]*(</string>)', lambda m: m.group(1) + label + m.group(2), s)
+              if s2 != s:
+                  p.write_text(s2, encoding="utf-8")
+          PY
+
+      - name: Apply mods
+        run: |
+          if [ -d mods ] && [ -n "$(find mods -type f ! -name 'README.md' | head -1)" ]; then
+            echo "Applying mods:"
+            find mods -type f ! -name 'README.md' | sort
+            rsync -a --exclude 'README.md' mods/ work/
+          else
+            echo "No mods yet, building the unmodified clone."
+          fi
+
+      - name: Rebuild
+        run: java -jar apktool.jar b work -o unsigned.apk
+
+      - name: Align and sign
+        run: |
+          BT=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)
+          "$BT/zipalign" -p -f 4 unsigned.apk aligned.apk
+          "$BT/apksigner" sign \
+            --ks signing/clone.keystore --ks-alias clone \
+            --ks-pass pass:android --key-pass pass:android \
+            --out VivoCalcClone.apk aligned.apk
+          "$BT/apksigner" verify --print-certs VivoCalcClone.apk | head -3
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: vivo-calc-clone-apk
+          path: VivoCalcClone.apk
+          if-no-files-found: error
