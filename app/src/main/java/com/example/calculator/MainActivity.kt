@@ -353,12 +353,12 @@ private fun CalculatorKey(label: String, modifier: Modifier = Modifier, onClick:
 @Composable
 private fun HistoryPanel(entries: List<HistoryEntry>, onSelect: (HistoryEntry) -> Unit) {
     if (entries.isEmpty()) {
-        Box(Modifier.fillMaxWidth().weight(1f), contentAlignment = Alignment.Center) {
+        Box(Modifier.fillMaxWidth().fillMaxHeight(), contentAlignment = Alignment.Center) {
             Text("No calculations yet", color = Grey, fontSize = 16.sp)
         }
     } else {
         LazyColumn(
-            Modifier.fillMaxWidth().weight(1f).padding(horizontal = 24.dp),
+            Modifier.fillMaxWidth().fillMaxHeight().padding(horizontal = 24.dp),
             verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             items(entries) { entry ->
