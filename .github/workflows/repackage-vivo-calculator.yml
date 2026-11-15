@@ -100,7 +100,7 @@ jobs:
           BT=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)
           "$BT/zipalign" -p -f 4 unsigned.apk aligned.apk
           "$BT/apksigner" sign \
-            --ks signing/clone.keystore --ks-alias clone \
+            --ks signing/clone.keystore --ks-key-alias clone \
             --ks-pass pass:android --key-pass pass:android \
             --out VivoCalcClone.apk aligned.apk
           "$BT/apksigner" verify --print-certs VivoCalcClone.apk | head -3
