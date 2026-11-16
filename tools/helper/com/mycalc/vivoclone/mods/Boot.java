@@ -27,8 +27,9 @@ import java.util.regex.Pattern;
  * It is started by Android itself (it is declared as a ContentProvider in the manifest, so
  * onCreate() runs when the app process starts) and then watches the calculator screen to:
  *   1. show, under every history entry, how many numbers that calculation used,
- *   2. keep the scientific-mode and exchange-rate buttons hidden,
- *   3. keep the screen in portrait (scientific mode is what landscape switches to).
+ *   2. wrap long calculations over up to six lines instead of scrolling (FormulaWrap),
+ *   3. keep the scientific-mode and exchange-rate buttons hidden,
+ *   4. keep the screen in portrait (scientific mode is what landscape switches to).
  *
  * It only touches the original app through view ids, the history database file and
  * framework APIs, so no original code has to be edited.
@@ -131,10 +132,12 @@ public class Boot extends ContentProvider {
         final Activity activity;
         private final Handler handler;
         private boolean running;
+        private final FormulaWrap wrap;
 
         Ticker(Activity activity, Handler handler) {
             this.activity = activity;
             this.handler = handler;
+            this.wrap = new FormulaWrap(activity);
         }
 
         void start() {
@@ -145,6 +148,10 @@ public class Boot extends ContentProvider {
         void stop() {
             running = false;
             handler.removeCallbacks(this);
+            try {
+                wrap.release();
+            } catch (Throwable ignored) {
+            }
         }
 
         @Override
@@ -167,6 +174,8 @@ public class Boot extends ContentProvider {
             if (activity.getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             }
+
+            wrap.update();
 
             int processId = idOf("calculator_process", "id");
             if (processId != 0) {
