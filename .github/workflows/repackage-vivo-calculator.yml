@@ -3,7 +3,7 @@ name: Build Vivo Calculator clone
 # Takes the original APK in extracted/VivoCalculator.apk and turns it into your own copy:
 #   - its own package name and launcher name, so it installs NEXT TO the system calculator
 #   - scientific mode and exchange rate removed from the UI and the manifest (tools/patch_clone.py)
-#   - "History . N items" label next to the history icon (tools/helper/..., added as classes2.dex)
+#   - number count under every history entry (tools/helper/..., added as classes2.dex)
 #   - anything in mods/ laid on top
 # then rebuilds and signs it.
 

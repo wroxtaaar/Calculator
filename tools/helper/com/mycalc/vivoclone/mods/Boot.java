@@ -7,26 +7,25 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Small add-on that is compiled separately and added to the rebuilt APK as classes2.dex.
  *
  * It is started by Android itself (it is declared as a ContentProvider in the manifest, so
  * onCreate() runs when the app process starts) and then watches the calculator screen to:
- *   1. show "History . N items" next to the history icon,
+ *   1. show, under every history entry, how many numbers that calculation used,
  *   2. keep the scientific-mode and exchange-rate buttons hidden,
  *   3. keep the screen in portrait (scientific mode is what landscape switches to).
  *
@@ -124,11 +123,13 @@ public class Boot extends ContentProvider {
 
     /** Runs a few times a second while the calculator is visible. */
     static final class Ticker implements Runnable {
+        static final String COUNT_TAG = "mods_number_count";
+        // 33+45-78+68 -> 4 numbers; "1,000.5" and "2.5E3" each count as one number
+        static final Pattern NUMBER = Pattern.compile("\\p{Nd}+(?:[.,\u066B\u066C]\\p{Nd}+)*(?:E[+-]?\\p{Nd}+)?");
+
         final Activity activity;
         private final Handler handler;
         private boolean running;
-        private TextView label;
-        private int shownCount = -1;
 
         Ticker(Activity activity, Handler handler) {
             this.activity = activity;
@@ -166,13 +167,9 @@ public class Boot extends ContentProvider {
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             }
 
-            ensureLabel();
-            if (label != null) {
-                int count = countHistoryRows();
-                if (count >= 0 && count != shownCount) {
-                    shownCount = count;
-                    label.setText("History · " + count + (count == 1 ? " item" : " items"));
-                }
+            int processId = idOf("calculator_process", "id");
+            if (processId != 0) {
+                labelRows(activity.getWindow().getDecorView(), processId);
             }
         }
 
@@ -201,81 +198,65 @@ public class Boot extends ContentProvider {
                     TypedValue.COMPLEX_UNIT_DIP, value, activity.getResources().getDisplayMetrics());
         }
 
-        private void ensureLabel() {
-            if (label != null && label.getParent() != null) {
+        /** Finds every history row (a view with the expression id inside a list) and labels it. */
+        private void labelRows(View view, int processId) {
+            if (view instanceof TextView && view.getId() == processId
+                    && view.getParent() instanceof LinearLayout) {
+                labelRow((TextView) view, (LinearLayout) view.getParent());
                 return;
             }
-            int historyId = idOf("history_toge_button", "id");
-            if (historyId == 0) {
-                return;
-            }
-            final View historyButton = activity.findViewById(historyId);
-            if (historyButton == null || !(historyButton.getParent() instanceof RelativeLayout)) {
-                return;
-            }
-            RelativeLayout parent = (RelativeLayout) historyButton.getParent();
-
-            TextView text = new TextView(activity);
-            text.setId(View.generateViewId());
-            text.setGravity(Gravity.CENTER_VERTICAL);
-            text.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
-            text.setSingleLine(true);
-            text.setTextColor(greyText());
-            text.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    historyButton.performClick();
+            if (view instanceof ViewGroup) {
+                ViewGroup group = (ViewGroup) view;
+                for (int i = 0; i < group.getChildCount(); i++) {
+                    labelRows(group.getChildAt(i), processId);
                 }
-            });
-
-            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            lp.addRule(RelativeLayout.RIGHT_OF, historyId);
-            lp.addRule(RelativeLayout.ALIGN_TOP, historyId);
-            lp.addRule(RelativeLayout.ALIGN_BOTTOM, historyId);
-            // the history icon carries a 30dp end margin that RIGHT_OF respects, so pull back to ~8dp
-            lp.leftMargin = (int) -dp(22);
-            parent.addView(text, lp);
-
-            label = text;
-            shownCount = -1;
+            }
         }
 
-        private int greyText() {
-            int id = idOf("history_input_edit_color", "color");
-            if (id != 0) {
-                return activity.getResources().getColor(id, activity.getTheme());
+        private void labelRow(TextView expression, LinearLayout row) {
+            TextView count = null;
+            for (int i = 0; i < row.getChildCount(); i++) {
+                View child = row.getChildAt(i);
+                if (COUNT_TAG.equals(child.getTag())) {
+                    count = (TextView) child;
+                    break;
+                }
             }
-            return 0xFF888888;
+            if (count == null) {
+                count = new TextView(activity);
+                count.setTag(COUNT_TAG);
+                count.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
+                count.setSingleLine(true);
+                count.setTextColor(expression.getCurrentTextColor());
+                count.setAlpha(0.65f);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                lp.topMargin = (int) dp(3);
+                row.addView(count, row.indexOfChild(expression) + 1, lp);
+            }
+            // rows are recycled by the list, so always recompute from what the row shows now
+            int n = countNumbers(String.valueOf(expression.getText()));
+            if (n == 0) {
+                count.setVisibility(View.GONE);
+                return;
+            }
+            String text = n + (n == 1 ? " number" : " numbers");
+            if (count.getVisibility() != View.VISIBLE) {
+                count.setVisibility(View.VISIBLE);
+            }
+            if (!text.contentEquals(count.getText())) {
+                count.setText(text);
+            }
+            count.setTextColor(expression.getCurrentTextColor());
         }
 
-        /** Number of saved calculations; -1 when it could not be read right now. */
-        private int countHistoryRows() {
-            File file = activity.getDatabasePath("history.db3");
-            if (!file.exists()) {
-                return 0;
+        static int countNumbers(String expression) {
+            int n = 0;
+            Matcher m = NUMBER.matcher(expression);
+            while (m.find()) {
+                n++;
             }
-            SQLiteDatabase db = null;
-            Cursor cursor = null;
-            try {
-                db = SQLiteDatabase.openDatabase(file.getPath(), null, SQLiteDatabase.OPEN_READONLY);
-                cursor = db.rawQuery("select count(*) from history_table", null);
-                return cursor.moveToFirst() ? cursor.getInt(0) : 0;
-            } catch (Throwable t) {
-                String message = String.valueOf(t.getMessage());
-                if (message.contains("no such table")) {
-                    return 0;
-                }
-                // busy because the calculator is writing right now: keep what is shown
-                return shownCount >= 0 ? -1 : 0;
-            } finally {
-                if (cursor != null) {
-                    cursor.close();
-                }
-                if (db != null) {
-                    db.close();
-                }
-            }
+            return n;
         }
     }
 }

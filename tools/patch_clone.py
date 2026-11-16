@@ -73,7 +73,7 @@ def patch_manifest():
             element.set(a("screenOrientation"), "portrait")
             locked = True
 
-    # starts the add-on (history count, keeps buttons hidden)
+    # starts the add-on (per-entry number count, keeps buttons hidden)
     helper = ET.SubElement(app, "provider")
     helper.set(a("name"), HELPER_CLASS)
     helper.set(a("authorities"), "%s.boot" % NEW_PKG)
