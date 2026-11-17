@@ -119,6 +119,24 @@ def hide_buttons_in_layouts():
         sys.exit("activity_calculator_port.xml was not patched, layout format is not what was expected")
 
 
+def anchor_display_low():
+    """Sit the expression and result at the bottom of the display area, just above the history
+    icon, so a long calculation grows upwards instead of starting in the middle of the screen."""
+    path = WORK / "res" / "layout" / "activity_calculator_port.xml"
+    text = path.read_text(encoding="utf-8")
+    tag = re.search(r'<LinearLayout\b[^<>]*?android:id="@\+?id/touchlayout"[^<>]*>', text)
+    if not tag:
+        sys.exit("touchlayout not found in activity_calculator_port.xml")
+    old = tag.group(0)
+    new = old
+    if 'android:gravity="right"' not in new:
+        sys.exit("touchlayout gravity is not what was expected")
+    new = new.replace('android:gravity="right"', 'android:gravity="right|bottom"', 1)
+    new = re.sub(r"^(<LinearLayout)", r'\1 android:layout_marginBottom="56dp"', new)
+    path.write_text(text.replace(old, new, 1), encoding="utf-8")
+    print("layout: expression and result anchored to the bottom of the display area")
+
+
 def set_launcher_label():
     changed = 0
     for path in WORK.glob("res/values*/strings.xml"):
@@ -137,4 +155,5 @@ def set_launcher_label():
 if __name__ == "__main__":
     patch_manifest()
     hide_buttons_in_layouts()
+    anchor_display_low()
     set_launcher_label()
