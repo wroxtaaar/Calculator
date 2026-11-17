@@ -4,9 +4,8 @@ concurrency:
   group: android-apk-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+# Old from-scratch Compose app. Manual only, so pushes produce just the Vivo clone APK.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
