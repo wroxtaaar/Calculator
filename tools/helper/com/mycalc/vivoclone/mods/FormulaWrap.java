@@ -2,6 +2,7 @@ package com.mycalc.vivoclone.mods;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.Layout;
@@ -13,6 +14,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -37,6 +39,9 @@ final class FormulaWrap {
     private TextView formula;
     private TextView overlay;
     private boolean hidingFormula;
+    private int realColor;
+    private boolean cursorWasVisible;
+    private ViewTreeObserver.OnPreDrawListener sync;
 
     private FormulaWrap(Activity activity) {
         this.activity = activity;
@@ -132,8 +137,12 @@ final class FormulaWrap {
         }
 
         ensureOverlay();
+        int current = formula.getCurrentTextColor();
+        if (Color.alpha(current) != 0) {
+            realColor = current;
+        }
         overlay.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
-        overlay.setTextColor(formula.getCurrentTextColor());
+        overlay.setTextColor(realColor);
         Typeface face = formula.getTypeface();
         if (face != null) {
             overlay.setTypeface(face);
@@ -141,16 +150,75 @@ final class FormulaWrap {
         overlay.setPadding(formula.getTotalPaddingLeft(), 0, formula.getTotalPaddingRight(), 0);
         overlay.setText(broken);
         place();
-        formula.setAlpha(0f);
-        hidingFormula = true;
+        if (!hidingFormula) {
+            cursorWasVisible = formula.isCursorVisible();
+            hidingFormula = true;
+        }
+        hideOriginal();
+        installSync();
+    }
+
+    /**
+     * The original input is hidden by making its text transparent, not by its alpha, so the
+     * calculator's own "=" animation (fade out while moving up) keeps running on it and the
+     * wrapped copy can simply follow it.
+     */
+    private void hideOriginal() {
+        if (Color.alpha(formula.getCurrentTextColor()) != 0) {
+            realColor = formula.getCurrentTextColor();
+            formula.setTextColor(Color.TRANSPARENT);
+            if (overlay != null) {
+                overlay.setTextColor(realColor);
+            }
+        }
+        if (formula.isCursorVisible()) {
+            formula.setCursorVisible(false);
+        }
+    }
+
+    private void installSync() {
+        if (sync != null) {
+            return;
+        }
+        ViewTreeObserver observer = formula.getViewTreeObserver();
+        if (!observer.isAlive()) {
+            return;
+        }
+        sync = new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                if (hidingFormula && formula != null && overlay != null) {
+                    hideOriginal();
+                    // follow the original's own fade and slide
+                    overlay.setAlpha(formula.getAlpha());
+                    overlay.setTranslationY(formula.getTranslationY());
+                }
+                return true;
+            }
+        };
+        observer.addOnPreDrawListener(sync);
     }
 
     void release() {
         if (overlay != null && overlay.getParent() instanceof ViewGroup) {
             ((ViewGroup) overlay.getParent()).removeView(overlay);
         }
+        if (overlay != null) {
+            overlay.setAlpha(1f);
+            overlay.setTranslationY(0f);
+        }
+        if (sync != null && formula != null) {
+            ViewTreeObserver observer = formula.getViewTreeObserver();
+            if (observer.isAlive()) {
+                observer.removeOnPreDrawListener(sync);
+            }
+        }
+        sync = null;
         if (hidingFormula && formula != null) {
-            formula.setAlpha(1f);
+            if (realColor != 0) {
+                formula.setTextColor(realColor);
+            }
+            formula.setCursorVisible(cursorWasVisible);
         }
         hidingFormula = false;
     }
@@ -185,7 +253,7 @@ final class FormulaWrap {
                 View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
                 View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
         int height = overlay.getMeasuredHeight();
-        int bottom = f[1] - c[1] + formula.getHeight() - (int) dp(6);
+        int bottom = f[1] - c[1] - (int) formula.getTranslationY() + formula.getHeight() - (int) dp(6);
         FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) overlay.getLayoutParams();
         int left = f[0] - c[0];
         int top = bottom - height;
