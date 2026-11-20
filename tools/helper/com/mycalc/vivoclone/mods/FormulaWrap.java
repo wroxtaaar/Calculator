@@ -2,7 +2,6 @@ package com.mycalc.vivoclone.mods;
 
 import android.app.Activity;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.Layout;
@@ -39,8 +38,6 @@ final class FormulaWrap {
     private TextView formula;
     private TextView overlay;
     private boolean hidingFormula;
-    private int realColor;
-    private boolean cursorWasVisible;
     private ViewTreeObserver.OnPreDrawListener sync;
 
     private FormulaWrap(Activity activity) {
@@ -137,12 +134,8 @@ final class FormulaWrap {
         }
 
         ensureOverlay();
-        int current = formula.getCurrentTextColor();
-        if (Color.alpha(current) != 0) {
-            realColor = current;
-        }
         overlay.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
-        overlay.setTextColor(realColor);
+        overlay.setTextColor(formula.getCurrentTextColor());
         Typeface face = formula.getTypeface();
         if (face != null) {
             overlay.setTypeface(face);
@@ -150,29 +143,18 @@ final class FormulaWrap {
         overlay.setPadding(formula.getTotalPaddingLeft(), 0, formula.getTotalPaddingRight(), 0);
         overlay.setText(broken);
         place();
-        if (!hidingFormula) {
-            cursorWasVisible = formula.isCursorVisible();
-            hidingFormula = true;
-        }
+        hidingFormula = true;
         hideOriginal();
         installSync();
     }
 
     /**
-     * The original input is hidden by making its text transparent, not by its alpha, so the
-     * calculator's own "=" animation (fade out while moving up) keeps running on it and the
-     * wrapped copy can simply follow it.
+     * The original input is hidden with INVISIBLE (this also hides the blue operator spans). Its
+     * alpha and position keep being animated by the calculator, so the wrapped copy follows them.
      */
     private void hideOriginal() {
-        if (Color.alpha(formula.getCurrentTextColor()) != 0) {
-            realColor = formula.getCurrentTextColor();
-            formula.setTextColor(Color.TRANSPARENT);
-            if (overlay != null) {
-                overlay.setTextColor(realColor);
-            }
-        }
-        if (formula.isCursorVisible()) {
-            formula.setCursorVisible(false);
+        if (formula.getVisibility() != View.INVISIBLE) {
+            formula.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -215,10 +197,7 @@ final class FormulaWrap {
         }
         sync = null;
         if (hidingFormula && formula != null) {
-            if (realColor != 0) {
-                formula.setTextColor(realColor);
-            }
-            formula.setCursorVisible(cursorWasVisible);
+            formula.setVisibility(View.VISIBLE);
         }
         hidingFormula = false;
     }
