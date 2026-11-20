@@ -37,6 +37,7 @@ final class FormulaWrap {
     private final Activity activity;
     private TextView formula;
     private TextView overlay;
+    private String shownText = "";
     private boolean hidingFormula;
     private ViewTreeObserver.OnPreDrawListener sync;
 
@@ -94,15 +95,12 @@ final class FormulaWrap {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    formula.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                update();
-                            } catch (Throwable ignored) {
-                            }
-                        }
-                    });
+                    // Synchronously: the "=" animation ends by putting the answer in the input and
+                    // resetting its alpha, and a delayed update would show the old lines for a frame.
+                    try {
+                        update();
+                    } catch (Throwable ignored) {
+                    }
                 }
             });
         }
@@ -142,6 +140,7 @@ final class FormulaWrap {
         }
         overlay.setPadding(formula.getTotalPaddingLeft(), 0, formula.getTotalPaddingRight(), 0);
         overlay.setText(broken);
+        shownText = text.toString();
         place();
         hidingFormula = true;
         hideOriginal();
@@ -170,6 +169,12 @@ final class FormulaWrap {
             @Override
             public boolean onPreDraw() {
                 if (hidingFormula && formula != null && overlay != null) {
+                    if (!shownText.equals(String.valueOf(formula.getText()))) {
+                        update(); // text changed behind our back: re-evaluate before this frame is drawn
+                        if (!hidingFormula) {
+                            return true;
+                        }
+                    }
                     hideOriginal();
                     // follow the original's own fade and slide
                     overlay.setAlpha(formula.getAlpha());
