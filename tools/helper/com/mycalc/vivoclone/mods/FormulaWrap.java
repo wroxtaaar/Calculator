@@ -13,7 +13,6 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -32,14 +31,25 @@ final class FormulaWrap {
     private static final int MAX_LINES = 6;
     private static final WeakHashMap<View, Boolean> WATCHED = new WeakHashMap<View, Boolean>();
 
+    private static final WeakHashMap<Activity, FormulaWrap> INSTANCES = new WeakHashMap<Activity, FormulaWrap>();
+
     private final Activity activity;
     private TextView formula;
     private TextView overlay;
     private boolean hidingFormula;
-    private ViewTreeObserver.OnPreDrawListener guard;
 
-    FormulaWrap(Activity activity) {
+    private FormulaWrap(Activity activity) {
         this.activity = activity;
+    }
+
+    /** One wrapper per activity. A second one would keep its own listener and draw a second copy. */
+    static synchronized FormulaWrap of(Activity activity) {
+        FormulaWrap wrap = INSTANCES.get(activity);
+        if (wrap == null) {
+            wrap = new FormulaWrap(activity);
+            INSTANCES.put(activity, wrap);
+        }
+        return wrap;
     }
 
     private float dp(float value) {
@@ -133,46 +143,16 @@ final class FormulaWrap {
         place();
         formula.setAlpha(0f);
         hidingFormula = true;
-        installGuard();
-    }
-
-    /** The calculator sets the input's alpha back to 1 itself; hide it again before every frame. */
-    private void installGuard() {
-        if (guard != null || formula == null) {
-            return;
-        }
-        ViewTreeObserver observer = formula.getViewTreeObserver();
-        if (!observer.isAlive()) {
-            return;
-        }
-        guard = new ViewTreeObserver.OnPreDrawListener() {
-            @Override
-            public boolean onPreDraw() {
-                if (hidingFormula && formula != null && formula.getAlpha() != 0f) {
-                    formula.setAlpha(0f);
-                }
-                return true;
-            }
-        };
-        observer.addOnPreDrawListener(guard);
     }
 
     void release() {
         if (overlay != null && overlay.getParent() instanceof ViewGroup) {
             ((ViewGroup) overlay.getParent()).removeView(overlay);
         }
-        boolean wasHiding = hidingFormula;
-        hidingFormula = false;
-        if (guard != null && formula != null) {
-            ViewTreeObserver observer = formula.getViewTreeObserver();
-            if (observer.isAlive()) {
-                observer.removeOnPreDrawListener(guard);
-            }
-            guard = null;
-        }
-        if (wasHiding && formula != null) {
+        if (hidingFormula && formula != null) {
             formula.setAlpha(1f);
         }
+        hidingFormula = false;
     }
 
     private void ensureOverlay() {

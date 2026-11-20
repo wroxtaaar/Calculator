@@ -137,7 +137,7 @@ public class Boot extends ContentProvider {
         Ticker(Activity activity, Handler handler) {
             this.activity = activity;
             this.handler = handler;
-            this.wrap = new FormulaWrap(activity);
+            this.wrap = FormulaWrap.of(activity);
         }
 
         void start() {
