@@ -13,6 +13,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -35,6 +36,7 @@ final class FormulaWrap {
     private TextView formula;
     private TextView overlay;
     private boolean hidingFormula;
+    private ViewTreeObserver.OnPreDrawListener guard;
 
     FormulaWrap(Activity activity) {
         this.activity = activity;
@@ -129,20 +131,48 @@ final class FormulaWrap {
         overlay.setPadding(formula.getTotalPaddingLeft(), 0, formula.getTotalPaddingRight(), 0);
         overlay.setText(broken);
         place();
-        if (!hidingFormula || formula.getAlpha() != 0f) {
-            formula.setAlpha(0f);
-            hidingFormula = true;
+        formula.setAlpha(0f);
+        hidingFormula = true;
+        installGuard();
+    }
+
+    /** The calculator sets the input's alpha back to 1 itself; hide it again before every frame. */
+    private void installGuard() {
+        if (guard != null || formula == null) {
+            return;
         }
+        ViewTreeObserver observer = formula.getViewTreeObserver();
+        if (!observer.isAlive()) {
+            return;
+        }
+        guard = new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                if (hidingFormula && formula != null && formula.getAlpha() != 0f) {
+                    formula.setAlpha(0f);
+                }
+                return true;
+            }
+        };
+        observer.addOnPreDrawListener(guard);
     }
 
     void release() {
         if (overlay != null && overlay.getParent() instanceof ViewGroup) {
             ((ViewGroup) overlay.getParent()).removeView(overlay);
         }
-        if (hidingFormula && formula != null) {
+        boolean wasHiding = hidingFormula;
+        hidingFormula = false;
+        if (guard != null && formula != null) {
+            ViewTreeObserver observer = formula.getViewTreeObserver();
+            if (observer.isAlive()) {
+                observer.removeOnPreDrawListener(guard);
+            }
+            guard = null;
+        }
+        if (wasHiding && formula != null) {
             formula.setAlpha(1f);
         }
-        hidingFormula = false;
     }
 
     private void ensureOverlay() {
